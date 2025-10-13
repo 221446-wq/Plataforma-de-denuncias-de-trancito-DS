@@ -1,0 +1,36 @@
+/* Hero  */
+.hero {
+  width: 100%;
+  min-height: 100vh; /* Cambiado de 80vh a 100vh */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0;
+  background-image: url('../assets/img/index_principal.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Fixed Top  */
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030; 
+}
+
+/* Ajuste para compensar el header fijo */
+.hero {
+  margin-top: 0;
+}
+
+/* Para dispositivos móviles */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+    padding: 100px 0 60px 0;
+  }
+}
