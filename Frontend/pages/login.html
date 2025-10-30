@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Plataforma de Denuncias Virtuales</title>
+    <link rel="shortcut icon" href="../assets/icons/Logo.jpg">  
+    <link href="../css/login.css" rel="stylesheet">
+</head>
+
+<body class="login-page">
+
+    <header id="header" class="header fixed-top">
+        <div class="container">
+            <a href="index.html" class="logo">        
+                <img src="../assets/icons/Logo_Municipalidad_Cusco.png" alt="Logo Municipalidad del Cusco">
+                <h1>PLATAFORMA DE DENUNCIAS VIRTUALES</h1>        
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="sobrenosotros.html">Nosotros</a></li>                
+                    <li><a href="contacto.html">Contacto</a></li>                
+                    <li><a href="buscar_denuncia.html">Buscar denuncia</a></li>
+                    <li><a href="login.html" class="active">Iniciar Sesión</a></li>          
+                </ul>
+            </nav>   
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container login-container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="login-card">
+                        <h1 class="login-title">INICIAR SESIÓN</h1>
+                        
+                        <form class="login-form">
+                            <div class="form-group">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" id="usuario" class="form-input" placeholder="Ingrese su usuario" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" id="password" class="form-input" placeholder="Ingrese su contraseña" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipo-usuario" class="form-label">Ingresar como:</label>
+                                <select id="tipo-usuario" class="form-select" required>
+                                    <option value="">Seleccione un tipo de usuario</option>
+                                    <option value="ciudadano">Ciudadano</option>
+                                    <option value="administrador">Administrador</option>
+                                    <option value="autoridad">Autoridad</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="login-btn">Ingresar aquí</button>
+                        </form>
+
+                        <div class="login-footer">
+                            <p>¿No tienes una cuenta?</p>
+                            <a href="registrar_cuenta.html" class="register-link">Regístrate aquí</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

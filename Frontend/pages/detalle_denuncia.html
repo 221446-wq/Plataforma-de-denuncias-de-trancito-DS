@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Denuncia - Plataforma de Denuncias Virtuales</title>
+    <link rel="shortcut icon" href="../assets/icons/Logo.jpg"> 
+    <link href="../css/detalle_denuncia.css" rel="stylesheet">
+</head>
+
+<body class="detalle-page">
+
+    <header id="header" class="header fixed-top">
+        <div class="container">
+            <a href="index.html" class="logo">        
+                <img src="../assets/icons/Logo_Municipalidad_Cusco.png" alt="Logo Municipalidad del Cusco">
+                <h1>PLATAFORMA DE DENUNCIAS VIRTUALES</h1>        
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="sobrenosotros.html">Nosotros</a></li>                
+                    <li><a href="contacto.html">Contacto</a></li>                
+                    <li><a href="buscar_denuncia.html">Buscar denuncia</a></li>
+                    <li><a href="login.html">Iniciar Sesión</a></li>          
+                </ul>
+            </nav>   
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container detalle-container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <!-- Header del detalle -->
+                    <div class="detalle-header">
+                        <div class="header-left">
+                            <h1 class="detalle-title">Detalle de Denuncia</h1>
+                            <p class="detalle-subtitle">PLATAFORMA DE DENUNCIAS VIRTUALES</p>
+                        </div>
+                        <div class="header-right">
+                            <a href="gestion_denuncias.html" class="back-btn">← Volver a Gestión</a>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <!-- Información principal -->
+                        <div class="info-grid">
+                            <!-- Columna izquierda - Información básica -->
+                            <div class="info-column">
+                                <div class="info-section">
+                                    <h3 class="section-title">Información de la Denuncia</h3>
+                                    <div class="info-item">
+                                        <label>Número de Denuncia:</label>
+                                        <span class="info-value">DEN-2025-001</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Fecha de Registro:</label>
+                                        <span class="info-value">31/08/2025 - 14:30</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Tipo de Denuncia:</label>
+                                        <span class="info-value">Vehículo mal estacionado - bloqueando cochera</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Prioridad:</label>
+                                        <span class="badge alta">Alta</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Estado Actual:</label>
+                                        <span class="estado recibido">Recibido</span>
+                                    </div>
+                                </div>
+
+                                <!-- Información del ciudadano -->
+                                <div class="info-section">
+                                    <h3 class="section-title">Información del Ciudadano</h3>
+                                    <div class="info-item">
+                                        <label>Nombre:</label>
+                                        <span class="info-value">Juan Carlos Pérez</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>DNI:</label>
+                                        <span class="info-value">12345678</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Teléfono:</label>
+                                        <span class="info-value">+51 987 654 321</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Email:</label>
+                                        <span class="info-value">juan.perez@email.com</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Columna derecha - Ubicación y acciones -->
+                            <div class="info-column">
+                                <!-- Ubicación -->
+                                <div class="info-section">
+                                    <h3 class="section-title">Ubicación del Incidente</h3>
+                                    <div class="info-item">
+                                        <label>Dirección:</label>
+                                        <span class="info-value">Av. El Sol 123, Cusco</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Coordenadas:</label>
+                                        <span class="info-value">-13.531950, -71.967460</span>
+                                    </div>
+                                    <div class="map-placeholder">
+                                        <p>🗺️ Mapa de ubicación</p>
+                                        <small>Aquí se mostraría el mapa con la ubicación exacta</small>
+                                    </div>
+                                </div>
+
+                                <!-- Gestión de la denuncia -->
+                                <div class="info-section">
+                                    <h3 class="section-title">Gestión de la Denuncia</h3>
+                                    <div class="action-buttons">
+                                        <button class="action-btn primary" onclick="cambiarEstado('proceso')">
+                                            📋 Poner en Proceso
+                                        </button>
+                                        <button class="action-btn success" onclick="cambiarEstado('resuelta')">
+                                            ✅ Marcar como Resuelta
+                                        </button>
+                                        <button class="action-btn warning" onclick="cambiarEstado('archivada')">
+                                            📁 Archivar Denuncia
+                                        </button>
+                                        <button class="action-btn secondary" onclick="descargarReporte()">
+                                            📄 Descargar Reporte
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Descripción detallada -->
+                        <div class="info-section full-width">
+                            <h3 class="section-title">Descripción del Incidente</h3>
+                            <div class="descripcion-content">
+                                <p>Vehículo de placa ABC-123 estacionado indebidamente bloqueando el acceso a cochera en Av. El Sol 123. El vehículo lleva más de 2 horas en esta posición impidiendo el ingreso y salida de residentes.</p>
+                                <p><strong>Hora del incidente:</strong> 31/08/2025 - 12:15 PM</p>
+                                <p><strong>Color del vehículo:</strong> Rojo</p>
+                                <p><strong>Modelo:</strong> Toyota Corolla 2020</p>
+                                <p><strong>Observaciones adicionales:</strong> El conductor no se encuentra en los alrededores y no responde a llamados.</p>
+                            </div>
+                        </div>
+
+                        <!-- Archivos adjuntos -->
+                        <div class="info-section full-width">
+                            <h3 class="section-title">Archivos Adjuntos</h3>
+                            <div class="archivos-grid">
+                                <div class="archivo-item">
+                                    <div class="archivo-icon">🖼️</div>
+                                    <div class="archivo-info">
+                                        <span class="archivo-nombre">foto_incidente_1.jpg</span>
+                                        <span class="archivo-tamaño">2.1 MB</span>
+                                    </div>
+                                    <button class="archivo-btn" onclick="verArchivo(1)">Ver</button>
+                                    <button class="archivo-btn secondary" onclick="descargarArchivo(1)">Descargar</button>
+                                </div>
+                                <div class="archivo-item">
+                                    <div class="archivo-icon">🖼️</div>
+                                    <div class="archivo-info">
+                                        <span class="archivo-nombre">foto_incidente_2.jpg</span>
+                                        <span class="archivo-tamaño">1.8 MB</span>
+                                    </div>
+                                    <button class="archivo-btn" onclick="verArchivo(2)">Ver</button>
+                                    <button class="archivo-btn secondary" onclick="descargarArchivo(2)">Descargar</button>
+                                </div>
+                                <div class="archivo-item">
+                                    <div class="archivo-icon">🎥</div>
+                                    <div class="archivo-info">
+                                        <span class="archivo-nombre">video_incidente.mp4</span>
+                                        <span class="archivo-tamaño">15.3 MB</span>
+                                    </div>
+                                    <button class="archivo-btn" onclick="verArchivo(3)">Ver</button>
+                                    <button class="archivo-btn secondary" onclick="descargarArchivo(3)">Descargar</button>
+                                </div>
+                                <div class="archivo-item">
+                                    <div class="archivo-icon">📄</div>
+                                    <div class="archivo-info">
+                                        <span class="archivo-nombre">declaracion_ciudadano.pdf</span>
+                                        <span class="archivo-tamaño">0.8 MB</span>
+                                    </div>
+                                    <button class="archivo-btn" onclick="verArchivo(4)">Ver</button>
+                                    <button class="archivo-btn secondary" onclick="descargarArchivo(4)">Descargar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Historial de seguimiento -->
+                        <div class="info-section full-width">
+                            <h3 class="section-title">Historial de Seguimiento</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-date">31/08/2025 - 14:30</div>
+                                        <div class="timeline-title">Denuncia Recibida</div>
+                                        <div class="timeline-desc">La denuncia fue registrada en el sistema por el ciudadano Juan Carlos Pérez</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-date">31/08/2025 - 14:35</div>
+                                        <div class="timeline-title">Revisión Inicial</div>
+                                        <div class="timeline-desc">La denuncia fue revisada por el sistema y asignada prioridad ALTA</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-date">31/08/2025 - 14:40</div>
+                                        <div class="timeline-title">Asignación de Agente</div>
+                                        <div class="timeline-desc">Denuncia asignada al agente: María Elena Rodríguez</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker pending"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-date">Próximo paso</div>
+                                        <div class="timeline-title">En espera de acción</div>
+                                        <div class="timeline-desc">Esperando que el agente asignado tome acción sobre la denuncia</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comentarios y actualizaciones -->
+                        <div class="info-section full-width">
+                            <h3 class="section-title">Comentarios y Actualizaciones</h3>
+                            <div class="comentarios-section">
+                                <div class="nuevo-comentario">
+                                    <textarea class="comentario-input" placeholder="Agregar comentario o actualización sobre el estado de la denuncia..."></textarea>
+                                    <div class="comentario-actions">
+                                        <button class="comentario-btn" onclick="agregarComentario()">
+                                            💬 Agregar Comentario
+                                        </button>
+                                        <button class="comentario-btn secondary" onclick="notificarCiudadano()">
+                                            📧 Notificar al Ciudadano
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="comentarios-list">
+                                    <div class="comentario-item">
+                                        <div class="comentario-header">
+                                            <span class="comentario-autor">Sistema Automático</span>
+                                            <span class="comentario-fecha">31/08/2025 - 14:35</span>
+                                        </div>
+                                        <div class="comentario-texto">Denuncia registrada correctamente en el sistema y asignada para revisión.</div>
+                                    </div>
+                                    <div class="comentario-item">
+                                        <div class="comentario-header">
+                                            <span class="comentario-autor">María Elena Rodríguez</span>
+                                            <span class="comentario-fecha">31/08/2025 - 14:40</span>
+                                        </div>
+                                        <div class="comentario-texto">He revisado la denuncia y procederé con la verificación en sitio. Los archivos adjuntos son claros y muestran la infracción.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información adicional -->
+                        <div class="info-section full-width">
+                            <h3 class="section-title">Información Adicional</h3>
+                            <div class="info-grid-small">
+                                <div class="info-item-small">
+                                    <label>Agente Asignado:</label>
+                                    <span class="info-value">María Elena Rodríguez</span>
+                                </div>
+                                <div class="info-item-small">
+                                    <label>Departamento:</label>
+                                    <span class="info-value">Gerencia de Transporte</span>
+                                </div>
+                                <div class="info-item-small">
+                                    <label>Tiempo de Respuesta:</label>
+                                    <span class="info-value">10 minutos</span>
+                                </div>
+                                <div class="info-item-small">
+                                    <label>Última Actualización:</label>
+                                    <span class="info-value">31/08/2025 - 14:40</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function cambiarEstado(nuevoEstado) {
+            const estadoElement = document.querySelector('.estado');
+            const timeline = document.querySelector('.timeline');
+            
+            switch(nuevoEstado) {
+                case 'proceso':
+                    estadoElement.textContent = 'En Proceso';
+                    estadoElement.className = 'estado proceso';
+                    agregarAlHistorial('proceso', 'La denuncia fue puesta en proceso por el agente asignado');
+                    alert('Denuncia puesta en proceso');
+                    break;
+                case 'resuelta':
+                    estadoElement.textContent = 'Resuelta';
+                    estadoElement.className = 'estado resuelta';
+                    agregarAlHistorial('resuelta', 'La denuncia fue resuelta satisfactoriamente');
+                    alert('Denuncia marcada como resuelta');
+                    break;
+                case 'archivada':
+                    estadoElement.textContent = 'Archivada';
+                    estadoElement.className = 'estado archivada';
+                    agregarAlHistorial('archivada', 'La denuncia fue archivada en el sistema');
+                    alert('Denuncia archivada');
+                    break;
+            }
+        }
+
+        function agregarAlHistorial(accion, descripcion) {
+            const timeline = document.querySelector('.timeline');
+            const nuevoItem = document.createElement('div');
+            nuevoItem.className = 'timeline-item';
+            
+            const fecha = new Date().toLocaleString('es-ES');
+            let titulo = '';
+            
+            switch(accion) {
+                case 'proceso':
+                    titulo = 'Puesta en Proceso';
+                    break;
+                case 'resuelta':
+                    titulo = 'Marcada como Resuelta';
+                    break;
+                case 'archivada':
+                    titulo = 'Archivada';
+                    break;
+            }
+            
+            nuevoItem.innerHTML = `
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">${fecha}</div>
+                    <div class="timeline-title">${titulo}</div>
+                    <div class="timeline-desc">${descripcion}</div>
+                </div>
+            `;
+            
+            // Insertar antes del último item (que es el pending)
+            const items = timeline.querySelectorAll('.timeline-item');
+            const lastItem = items[items.length - 1];
+            timeline.insertBefore(nuevoItem, lastItem);
+        }
+
+        function descargarReporte() {
+            alert('Generando y descargando reporte de denuncia en formato PDF...');
+            // En una implementación real, aquí se generaría y descargaría el PDF
+        }
+
+        function verArchivo(id) {
+            const archivos = {
+                1: 'foto_incidente_1.jpg',
+                2: 'foto_incidente_2.jpg', 
+                3: 'video_incidente.mp4',
+                4: 'declaracion_ciudadano.pdf'
+            };
+            alert(`Abriendo archivo: ${archivos[id]}`);
+            // En una implementación real, aquí se abriría el archivo en un visor
+        }
+
+        function descargarArchivo(id) {
+            const archivos = {
+                1: 'foto_incidente_1.jpg',
+                2: 'foto_incidente_2.jpg',
+                3: 'video_incidente.mp4',
+                4: 'declaracion_ciudadano.pdf'
+            };
+            alert(`Descargando archivo: ${archivos[id]}`);
+            // En una implementación real, aquí se descargaría el archivo
+        }
+
+        function agregarComentario() {
+            const input = document.querySelector('.comentario-input');
+            const texto = input.value.trim();
+            
+            if (texto) {
+                const comentariosList = document.querySelector('.comentarios-list');
+                const nuevoComentario = document.createElement('div');
+                nuevoComentario.className = 'comentario-item';
+                
+                const fecha = new Date().toLocaleString('es-ES');
+                
+                nuevoComentario.innerHTML = `
+                    <div class="comentario-header">
+                        <span class="comentario-autor">Agente Asignado</span>
+                        <span class="comentario-fecha">${fecha}</span>
+                    </div>
+                    <div class="comentario-texto">${texto}</div>
+                `;
+                
+                comentariosList.appendChild(nuevoComentario);
+                input.value = '';
+                
+                // Agregar al historial
+                agregarAlHistorial('comentario', 'Se agregó un nuevo comentario a la denuncia');
+                
+                alert('Comentario agregado correctamente');
+            } else {
+                alert('Por favor, ingrese un comentario');
+            }
+        }
+
+        function notificarCiudadano() {
+            const input = document.querySelector('.comentario-input');
+            const texto = input.value.trim();
+            
+            if (texto) {
+                alert(`Notificación enviada al ciudadano con el mensaje: "${texto}"`);
+                input.value = '';
+                
+                // Agregar al historial
+                agregarAlHistorial('notificacion', 'Se envió notificación al ciudadano');
+            } else {
+                alert('Por favor, ingrese un mensaje para notificar al ciudadano');
+            }
+        }
+
+        // Efectos de interactividad
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar efecto de carga a los archivos
+            const archivosItems = document.querySelectorAll('.archivo-item');
+            archivosItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Efecto en botones de acción
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

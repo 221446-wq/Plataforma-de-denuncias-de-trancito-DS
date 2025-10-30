@@ -1,0 +1,258 @@
+/* sobrenosotros.css - Versión Simplificada y Funcional */
+
+/* ======= RESET BÁSICO ======= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======= VARIABLES ======= */
+:root {
+    --primary-color: #000000;
+    --secondary-color: #ff6b00;
+    --text-color: #333;
+    --text-light: #666;
+    --white: #ffffff;
+    --background-color: #f8f9fa;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* ======= ESTILOS GENERALES ======= */
+body.sobrenosotros-page {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding-top: 80px; /* Espacio para el header fijo */
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ======= HEADER ======= */
+.header {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    margin-right: 15px;
+}
+
+.logo h1 {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ======= NAVEGACIÓN ======= */
+.navmenu ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.navmenu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.navmenu a:hover,
+.navmenu a.active {
+    color: var(--primary-color);
+}
+
+.navmenu a.active {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* ======= SECCIÓN PRINCIPAL ======= */
+#main {
+    padding: 40px 0;
+}
+
+.about.section {
+    background: var(--white);
+    padding: 60px 0;
+}
+
+/* ======= GRID LAYOUT ======= */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 15px;
+}
+
+/* ======= CONTENIDO DE TEXTO ======= */
+.content h2.section-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+/* ======= IMAGEN ======= */
+.position-relative {
+    position: relative;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.rounded {
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+/* ======= ICON BOXES ======= */
+.mt-5 {
+    margin-top: 3rem;
+}
+
+.row.gy-4 {
+    margin: -15px;
+}
+
+.col-xl-4 {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+    padding: 15px;
+}
+
+.icon-box {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid #eaeaea;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.icon-box:hover {
+    transform: translateY(-5px);
+}
+
+.icon-box i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.icon-box h3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.icon-box p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 992px) {
+    .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .content h2.section-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .logo {
+        justify-content: center;
+    }
+    
+    .navmenu ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .col-xl-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    body.sobrenosotros-page {
+        padding-top: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .logo h1 {
+        font-size: 16px;
+    }
+    
+    .navmenu ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

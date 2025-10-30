@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Denuncia - Plataforma de Denuncias Virtuales</title>
+  <link rel="shortcut icon" href="../assets/icons/Logo.jpg">  
+  <link href="../css/buscarDenuncias.css" rel="stylesheet">
+</head>
+
+<body class="buscar-denuncia-page">
+  <header id="header" class="header fixed-top">
+        <div class="container">
+            <a href="index.html" class="logo">        
+                <img src="../assets/icons/Logo_Municipalidad_Cusco.png" alt="Logo Municipalidad del Cusco">
+                <h1>PLATAFORMA DE DENUNCIAS VIRTUALES</h1>        
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="sobrenosotros.html">Nosotros</a></li>                
+                    <li><a href="contacto.html">Contacto</a></li>                
+                    <li><a href="buscar_denuncia.html" class="active">Buscar denuncia</a></li>
+                    <li><a href="login.html">Iniciar Sesión</a></li>        
+                </ul>
+            </nav>   
+        </div>
+    </header>
+  
+
+  <main id="main">
+    <section id="buscar-denuncia" class="buscar-denuncia section">
+      <div class="container">
+        <h2 class="text-center">Búsqueda de mi denuncia</h2>
+
+        <div class="search-container">
+          <form action="buscar_denuncia.php" method="GET" class="search-form">
+            <div class="form-group">
+              <label for="codigo">Ingrese el código de su denuncia:</label>
+              <div class="input-with-example">
+                <input type="text" id="codigo" name="codigo" placeholder="Ej: X0001" required>
+                <span class="example-code">X0001</span>
+              </div>
+            </div>
+
+            <div class="text-center mt-3">
+              <button type="submit" class="btn-search">Buscar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="results-container">
+          <h3>Resultados de la búsqueda</h3>
+          
+          <div class="table-responsive">
+            <table class="denuncias-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Descripción</th>
+                  <th>Fecha</th>
+                  <th>Estado de la denuncia</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>X0001</td>
+                  <td>Vehículo mal estacionado</td>
+                  <td>31/08/2025</td>
+                  <td><span class="status status-received">Recibido</span></td>
+                </tr>
+                <!-- Más filas pueden agregarse aquí dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="no-results" style="display: none;">
+            <p>No se encontraron denuncias con el código proporcionado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelector('.search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const codigo = document.getElementById('codigo').value;
+      
+      // Simulación de búsqueda
+      if (codigo === 'X0001') {
+        document.querySelector('.results-container').style.display = 'block';
+        document.querySelector('.no-results').style.display = 'none';
+      } else {
+        document.querySelector('.results-container').style.display = 'none';
+        document.querySelector('.no-results').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

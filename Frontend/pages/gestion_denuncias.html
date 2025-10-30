@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Denuncias - Plataforma de Denuncias Virtuales</title>
+    <link rel="shortcut icon" href="../assets/icons/Logo.jpg"> 
+    <link href="../css/gestion_denuncias.css" rel="stylesheet">
+</head>
+
+<body class="gestion-page">
+
+    <header id="header" class="header fixed-top">
+        <div class="container">
+            <a href="index.html" class="logo">        
+                <img src="../assets/icons/Logo_Municipalidad_Cusco.png" alt="Logo Municipalidad del Cusco">
+                <h1>PLATAFORMA DE DENUNCIAS VIRTUALES</h1>        
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="sobrenosotros.html">Nosotros</a></li>                
+                    <li><a href="contacto.html">Contacto</a></li>                
+                    <li><a href="buscar_denuncia.html">Buscar denuncia</a></li>
+                    <li><a href="login.html">Iniciar Sesión</a></li>          
+                </ul>
+            </nav>   
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container gestion-container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center mb-4">
+                    <h1 class="gestion-title">Gestión de Denuncias</h1>
+                    <h2 class="gestion-subtitle">PLATAFORMA DE DENUNCIAS VIRTUALES</h2>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="panel-card">
+                        <h3 class="panel-title">Panel de Autoridad</h3>
+                        <p class="panel-welcome">Gestión de denuncias de tránsito.<br>Bienvenido Funcionario <strong>JUAN</strong></p>
+                        
+                        <!-- Estadísticas rápidas -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">8</div>
+                                <div class="stat-label">Total denuncias</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">4</div>
+                                <div class="stat-label">Pendientes</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Resueltas</div>
+                            </div>
+                            <div class="stat-card highlight">
+                                <a href="estadisticas.html" class="stat-link">
+                                    <div class="stat-number">📊</div>
+                                    <div class="stat-label">Ver Estadísticas</div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Filtros -->
+                        <div class="filtros-section">
+                            <h4 class="section-title">Gestión de Denuncias</h4>
+                            <div class="filtros-grid">
+                                <div class="filtro-group">
+                                    <label>Buscar por ciudadano</label>
+                                    <input type="text" class="filtro-input" placeholder="Nombre del ciudadano...">
+                                </div>
+                                <div class="filtro-group">
+                                    <label>Estado</label>
+                                    <select class="filtro-select">
+                                        <option>Todos los estados</option>
+                                        <option>Recibido</option>
+                                        <option>En Proceso</option>
+                                        <option>Resuelta</option>
+                                        <option>Archivada</option>
+                                    </select>
+                                </div>
+                                <div class="filtro-group">
+                                    <label>Prioridad</label>
+                                    <select class="filtro-select">
+                                        <option>Todas las prioridades</option>
+                                        <option>Alta</option>
+                                        <option>Media</option>
+                                        <option>Baja</option>
+                                    </select>
+                                </div>
+                                <div class="filtro-group">
+                                    <button class="filtro-btn">Aplicar Filtros</button>
+                                    <button class="filtro-btn secondary">Limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de denuncias -->
+                        <div class="table-container">
+                            <table class="denuncias-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Ciudadano</th>
+                                        <th>Fecha</th>
+                                        <th>Prioridad</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Filas de la tabla se mantienen igual -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div class="pagination">
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <span class="page-dots">...</span>
+                            <button class="page-btn">Siguiente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tu código JavaScript permanece igual
+        function cambiarEstado(select, denunciaId) {
+            const valor = select.value;
+            
+            if (valor === 'ver') {
+                window.location.href = `detalle_denuncia.html?id=${denunciaId}`;
+            } else if (valor) {
+                const fila = select.closest('tr');
+                const estadoCell = fila.querySelector('.estado');
+                
+                switch(valor) {
+                    case 'recibido':
+                        estadoCell.textContent = 'Recibido';
+                        estadoCell.className = 'estado recibido';
+                        break;
+                    case 'proceso':
+                        estadoCell.textContent = 'En Proceso';
+                        estadoCell.className = 'estado proceso';
+                        break;
+                    case 'resuelta':
+                        estadoCell.textContent = 'Resuelta';
+                        estadoCell.className = 'estado resuelta';
+                        break;
+                }
+                
+                select.value = '';
+                alert(`Estado de la denuncia ${denunciaId} cambiado a: ${estadoCell.textContent}`);
+            }
+        }
+
+        document.querySelector('.filtro-btn').addEventListener('click', function() {
+            alert('Filtros aplicados (en una implementación real, esto filtraría la tabla)');
+        });
+
+        document.querySelector('.filtro-btn.secondary').addEventListener('click', function() {
+            document.querySelectorAll('.filtro-input, .filtro-select').forEach(element => {
+                if (element.tagName === 'INPUT') {
+                    element.value = '';
+                } else {
+                    element.selectedIndex = 0;
+                }
+            });
+            alert('Filtros limpiados');
+        });
+    </script>
+
+</body>
+</html>

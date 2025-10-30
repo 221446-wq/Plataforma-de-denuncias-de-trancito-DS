@@ -1,0 +1,524 @@
+/* registro_funcionario.css */
+
+/* ======= VARIABLES CSS ======= */
+:root {
+    --primary-color: #000000;
+    --secondary-color: #ff6b00;
+    --accent-color: #2ecc71;
+    --warning-color: #f39c12;
+    --text-color: #333;
+    --text-light: #666;
+    --background-color: #f8f9fa;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 5px 25px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+/* ======= ESTILOS GENERALES ======= */
+.registro-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding-top: 80px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ======= HEADER ======= */
+.header {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.logo h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+/* ======= NAVEGACIÓN ======= */
+.navmenu ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+}
+
+.navmenu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 8px 0;
+    position: relative;
+    transition: var(--transition);
+}
+
+.navmenu a:hover {
+    color: var(--primary-color);
+}
+
+.navmenu a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+/* ======= SECCIÓN PRINCIPAL ======= */
+.registro.section {
+    padding: 40px 0;
+    background: var(--white);
+    min-height: calc(100vh - 80px);
+}
+
+/* ======= PANEL DE ADMINISTRADOR ======= */
+.admin-panel {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #2a4ba8 100%);
+    color: var(--white);
+    border-radius: 15px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.admin-panel h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.admin-panel p {
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* ======= TÍTULOS ======= */
+.text-center {
+    text-align: center;
+}
+
+.registro h2.text-center {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ======= CONTENEDOR DEL FORMULARIO ======= */
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* ======= FORMULARIO DE REGISTRO ======= */
+.form-registro {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group:last-child {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--white);
+    color: var(--text-color);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--text-light);
+    opacity: 0.7;
+}
+
+/* ======= INDICADOR DE FUERZA DE CONTRASEÑA ======= */
+.password-strength {
+    margin-top: 5px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+
+.password-strength::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #e74c3c;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 2px;
+}
+
+#password:focus ~ .password-strength::before {
+    width: 33.333%;
+    background: #e74c3c;
+}
+
+#password:valid ~ .password-strength::before {
+    width: 66.666%;
+    background: var(--warning-color);
+}
+
+#password:valid[data-strong="true"] ~ .password-strength::before {
+    width: 100%;
+    background: var(--accent-color);
+}
+
+/* ======= BOTONES ======= */
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-register,
+.btn-edit {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 200px;
+}
+
+.btn-register {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #2a4ba8 100%);
+    color: var(--white);
+}
+
+.btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    background: linear-gradient(135deg, #2a4ba8 0%, var(--primary-color) 100%);
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #f1c40f 100%);
+    color: var(--white);
+}
+
+.btn-edit:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    background: linear-gradient(135deg, #f1c40f 0%, var(--warning-color) 100%);
+}
+
+.btn-register:active,
+.btn-edit:active {
+    transform: translateY(0);
+}
+
+/* ======= EFECTOS HOVER ======= */
+.navmenu a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--secondary-color);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
+
+.navmenu a:hover::before {
+    width: 100%;
+}
+
+/* ======= ANIMACIONES ======= */
+.form-container {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.admin-panel {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ======= ESTILOS PARA VALIDACIÓN ======= */
+.form-group input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #e74c3c;
+}
+
+.form-group input:valid:not(:focus):not(:placeholder-shown) {
+    border-color: var(--accent-color);
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 992px) {
+    .logo h1 {
+        font-size: 1rem;
+    }
+    
+    .navmenu ul {
+        gap: 20px;
+    }
+    
+    .form-container {
+        padding: 35px 30px;
+    }
+    
+    .admin-panel h2 {
+        font-size: 1.6rem;
+    }
+    
+    .registro h2.text-center {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .logo {
+        justify-content: center;
+    }
+    
+    .navmenu ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .registro-page {
+        padding-top: 120px;
+    }
+    
+    .registro.section {
+        padding: 30px 0;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .form-container {
+        padding: 30px 25px;
+        margin: 0 15px;
+    }
+    
+    .admin-panel {
+        padding: 20px 25px;
+        margin: 0 15px 30px 15px;
+    }
+    
+    .admin-panel h2 {
+        font-size: 1.4rem;
+    }
+    
+    .registro h2.text-center {
+        font-size: 1.8rem;
+    }
+    
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .btn-register,
+    .btn-edit {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .logo h1 {
+        font-size: 16px;
+    }
+    
+    .navmenu ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .form-container {
+        padding: 25px 20px;
+        margin: 0 10px;
+    }
+    
+    .admin-panel {
+        padding: 20px;
+        margin: 0 10px 25px 10px;
+    }
+    
+    .admin-panel h2 {
+        font-size: 1.3rem;
+    }
+    
+    .admin-panel p {
+        font-size: 1rem;
+    }
+    
+    .registro h2.text-center {
+        font-size: 1.6rem;
+    }
+    
+    .form-group input {
+        padding: 10px 12px;
+    }
+    
+    .btn-register,
+    .btn-edit {
+        padding: 15px 25px;
+        font-size: 1rem;
+        min-width: auto;
+    }
+}
+
+/* ======= ESTILOS ADICIONALES PARA EL PANEL DE ADMIN ======= */
+.admin-panel::before {
+    content: '⚙️';
+    font-size: 2rem;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.3;
+}
+
+.admin-panel {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ======= ESTADO DE EDICIÓN ======= */
+.edit-mode .form-group input {
+    border-color: var(--warning-color);
+    background-color: #fffaf0;
+}
+
+.edit-mode .btn-register {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #f1c40f 100%);
+}
+
+.edit-mode .btn-register:hover {
+    background: linear-gradient(135deg, #f1c40f 0%, var(--warning-color) 100%);
+}
+
+/* ======= UTILIDADES ======= */
+.mt-4 {
+    margin-top: 2rem;
+}
+
+.text-center {
+    text-align: center;
+}

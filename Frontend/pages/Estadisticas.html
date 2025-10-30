@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas - Plataforma de Denuncias Virtuales</title>
+  <link rel="shortcut icon" href="../assets/icons/Logo.jpg">  
+  
+  <!-- Chart.js para los gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="../css/estadisticas.css" rel="stylesheet">
+</head>
+
+<body class="estadisticas-page">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container">
+      <a href="index.html" class="logo">        
+        <img src="../assets/icons/Logo_Municipalidad_Cusco.png" alt="Logo Municipalidad del Cusco">
+        <h1>PLATAFORMA DE DENUNCIAS VIRTUALES</h1>        
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobrenosotros.html">Nosotros</a></li>                
+          <li><a href="contacto.html">Contacto</a></li>                
+          <li><a href="buscar_denuncia.html">Buscar denuncia</a></li>
+          <li><a href="login.html">Iniciar Sesión</a></li>          
+        </ul>
+      </nav>   
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="estadisticas" class="estadisticas section">
+      <div class="container">
+        <h2>Estadísticas</h2>
+        <p class="subtitle">MUNICIPALIDAD PROVINCIAL DEL CUSCO<br>PLATAFORMA DE DENUNCIAS VIRTUALES</p>
+
+        <!-- Filtros -->
+        <div class="filtros-container">
+          <h3>Filtrar Estadísticas</h3>
+          <div class="filtros">
+            <div class="filtro-group">
+              <label for="tipo-denuncia">Tipo de Denuncia</label>
+              <select id="tipo-denuncia">
+                <option value="todos">Todos los tipos</option>
+                <option value="transito">Accidentes de Tránsito</option>
+                <option value="seguridad">Seguridad Ciudadana</option>
+                <option value="medioambiente">Medio Ambiente</option>
+                <option value="salud">Salud Pública</option>
+              </select>
+            </div>
+            <div class="filtro-group">
+              <label for="periodo">Período</label>
+              <select id="periodo">
+                <option value="2020-2024">2020-2024</option>
+                <option value="2015-2019">2015-2019</option>
+                <option value="2010-2014">2010-2014</option>
+              </select>
+            </div>
+            <div class="filtro-group">
+              <label for="distrito">Distrito</label>
+              <select id="distrito">
+                <option value="todos">Todos los distritos</option>
+                <option value="cusco">Cusco</option>
+                <option value="sanjerónimo">San Jerónimo</option>
+                <option value="sansebastian">San Sebastián</option>
+                <option value="santiago">Santiago</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-filtrar">Aplicar Filtros</button>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="graficos-container">
+          <!-- Gráfico 1: Accidentes de tránsito por tipo -->
+          <div class="grafico-card">
+            <h3>Accidentes de tránsito según tipo de accidente 2015-2020</h3>
+            <div class="grafico-wrapper">
+              <canvas id="grafico-tipo-accidente"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfico 2: Evolución temporal -->
+          <div class="grafico-card">
+            <h3>Número de accidentes de tránsito por año</h3>
+            <div class="grafico-wrapper">
+              <canvas id="grafico-evolucion"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfico 3: Distribución por distrito -->
+          <div class="grafico-card">
+            <h3>Distribución de denuncias por distrito</h3>
+            <div class="grafico-wrapper">
+              <canvas id="grafico-distritos"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfico 4: Estado de las denuncias -->
+          <div class="grafico-card">
+            <h3>Estado de las denuncias recibidas</h3>
+            <div class="grafico-wrapper">
+              <canvas id="grafico-estados"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tu código JavaScript permanece igual
+    document.addEventListener('DOMContentLoaded', function() {
+      // Gráfico 1: Accidentes de tránsito por tipo
+      const ctx1 = document.getElementById('grafico-tipo-accidente').getContext('2d');
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Choque', 'Atropello', 'Volcadura', 'Colisión', 'Incendio', 'Otros'],
+          datasets: [{
+            label: 'Número de accidentes',
+            data: [1250, 980, 650, 420, 150, 320],
+            backgroundColor: [
+              'rgba(0, 112, 40, 0.7)',
+              'rgba(0, 112, 40, 0.6)',
+              'rgba(0, 112, 40, 0.5)',
+              'rgba(0, 112, 40, 0.4)',
+              'rgba(0, 112, 40, 0.3)',
+              'rgba(0, 112, 40, 0.2)'
+            ],
+            borderColor: [
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Número de accidentes'
+              }
+            }
+          }
+        }
+      });
+
+      // Gráfico 2: Evolución temporal
+      const ctx2 = document.getElementById('grafico-evolucion').getContext('2d');
+      new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: ['2015', '2016', '2017', '2018', '2019', '2020'],
+          datasets: [{
+            label: 'Accidentes de tránsito',
+            data: [850, 920, 1050, 1120, 1250, 980],
+            borderColor: 'rgba(0, 112, 40, 1)',
+            backgroundColor: 'rgba(0, 112, 40, 0.1)',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Número de accidentes'
+              }
+            }
+          }
+        }
+      });
+
+      // Gráfico 3: Distribución por distrito
+      const ctx3 = document.getElementById('grafico-distritos').getContext('2d');
+      new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+          labels: ['Cusco', 'San Jerónimo', 'San Sebastián', 'Santiago', 'Wanchaq'],
+          datasets: [{
+            label: 'Denuncias por distrito',
+            data: [35, 25, 20, 15, 5],
+            backgroundColor: [
+              'rgba(0, 112, 40, 0.8)',
+              'rgba(0, 112, 40, 0.7)',
+              'rgba(0, 112, 40, 0.6)',
+              'rgba(0, 112, 40, 0.5)',
+              'rgba(0, 112, 40, 0.4)'
+            ],
+            borderColor: [
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+
+      // Gráfico 4: Estado de las denuncias
+      const ctx4 = document.getElementById('grafico-estados').getContext('2d');
+      new Chart(ctx4, {
+        type: 'pie',
+        data: {
+          labels: ['Recibidas', 'En proceso', 'Resueltas', 'Archivadas'],
+          datasets: [{
+            label: 'Estado de denuncias',
+            data: [40, 25, 30, 5],
+            backgroundColor: [
+              'rgba(0, 112, 40, 0.8)',
+              'rgba(0, 112, 40, 0.6)',
+              'rgba(0, 112, 40, 0.4)',
+              'rgba(0, 112, 40, 0.2)'
+            ],
+            borderColor: [
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)',
+              'rgba(0, 112, 40, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+
+      // Función para aplicar filtros
+      document.querySelector('.btn-filtrar').addEventListener('click', function() {
+        alert('Los filtros se aplicarían aquí. En una implementación real, esto cargaría nuevos datos desde el servidor.');
+      });
+    });
+  </script>
+
+</body>
+</html>
