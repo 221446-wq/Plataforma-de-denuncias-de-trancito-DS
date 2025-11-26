@@ -1,27 +1,26 @@
-/* buscarDenuncias.css */
-
-/* ======= VARIABLES CSS ======= */
+/* ======= Variables ======= */
 :root {
-    --primary-color: #000000;
-    --secondary-color: #ff6b00;
-    --accent-color: #2ecc71;
-    --text-color: #333;
-    --text-light: #666;
-    --background-color: #f8f9fa;
-    --white: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 5px 25px rgba(0, 0, 0, 0.15);
-    --transition: all 0.3s ease;
+    --primary: #000;
+    --text: #333;
+    --light: #666;
+    --white: #fff;
+    --bg: #f8f9fa;
+    --border: #e0e0e0;
 }
 
-/* ======= ESTILOS GENERALES ======= */
-.buscar-denuncia-page {
+/* ======= Base ======= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: var(--text);
+}
+
+.buscar-denuncia-page {
+    background: var(--white);
     padding-top: 80px;
+    min-height: 100vh;
 }
 
 .container {
@@ -30,15 +29,14 @@
     padding: 0 15px;
 }
 
-/* ======= HEADER ======= */
+/* ======= Header ======= */
 .header {
     background: var(--white);
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     padding: 15px 0;
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
     z-index: 1000;
 }
 
@@ -62,33 +60,26 @@
 .logo h1 {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--primary-color);
-    margin: 0;
+    color: var(--primary);
 }
 
-/* ======= NAVEGACIÓN ======= */
 .navmenu ul {
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
     gap: 30px;
 }
 
 .navmenu a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
-    font-size: 1rem;
     padding: 8px 0;
     position: relative;
-    transition: var(--transition);
+    transition: 0.3s;
 }
 
 .navmenu a:hover,
-.navmenu a.active {
-    color: var(--primary-color);
-}
+.navmenu a.active { color: var(--primary); }
 
 .navmenu a.active::after {
     content: '';
@@ -97,35 +88,30 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: var(--primary-color);
+    background: var(--primary);
 }
 
-/* ======= SECCIÓN PRINCIPAL ======= */
-.buscar-denuncia.section {
+/* ======= Main ======= */
+.buscar-denuncia {
     padding: 60px 0;
-    background: var(--white);
-    min-height: calc(100vh - 80px);
-}
-
-.text-center {
-    text-align: center;
 }
 
 .buscar-denuncia h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 40px;
+    text-align: center;
 }
 
-/* ======= CONTENEDOR DE BÚSQUEDA ======= */
+/* ======= Search ======= */
 .search-container {
-    background: var(--background-color);
+    background: var(--bg);
     border-radius: 10px;
     padding: 40px;
     margin-bottom: 40px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border: 1px solid var(--border);
 }
 
 .search-form {
@@ -133,55 +119,35 @@
     margin: 0 auto;
 }
 
-.form-group {
-    margin-bottom: 25px;
-}
-
 .form-group label {
     display: block;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-color);
     margin-bottom: 10px;
-}
-
-.input-with-example {
-    position: relative;
-    display: flex;
-    align-items: center;
 }
 
 .input-with-example input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border);
     border-radius: 8px;
     font-size: 1rem;
-    transition: var(--transition);
-    background: var(--white);
+    transition: 0.3s;
 }
 
 .input-with-example input:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
 }
 
-.example-code {
-    position: absolute;
-    right: 15px;
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-/* ======= BOTÓN DE BÚSQUEDA ======= */
-.mt-3 {
-    margin-top: 1rem;
+.text-center {
+    text-align: center;
+    margin-top: 25px;
 }
 
 .btn-search {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #2a4ba8 100%);
+    background: linear-gradient(135deg, #000, #2a4ba8);
     color: var(--white);
     border: none;
     padding: 12px 40px;
@@ -189,37 +155,70 @@
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
+    transition: 0.3s;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 200px;
+    justify-content: center;
 }
 
-.btn-search:hover {
+.btn-search:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, #2a4ba8 0%, var(--primary-color) 100%);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
 }
 
-.btn-search:active {
-    transform: translateY(0);
+.btn-search:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-/* ======= CONTENEDOR DE RESULTADOS ======= */
+/* ======= Loading ======= */
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 0.8s linear infinite;
+}
+
+.btn-search .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: var(--white);
+    margin: 0;
+}
+
+.loading p {
+    color: var(--light);
+    font-size: 1.1rem;
+}
+
+/* ======= Results ======= */
 .results-container {
     background: var(--white);
     border-radius: 10px;
     padding: 30px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border: 1px solid var(--border);
 }
 
 .results-container h3 {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 25px;
     font-weight: 600;
 }
 
-/* ======= TABLA DE DENUNCIAS ======= */
 .table-responsive {
     overflow-x: auto;
 }
@@ -227,237 +226,116 @@
 .denuncias-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
 .denuncias-table th {
-    background: var(--primary-color);
+    background: var(--primary);
     color: var(--white);
     padding: 15px;
     text-align: left;
     font-weight: 600;
-    font-size: 1rem;
 }
 
 .denuncias-table td {
     padding: 15px;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
 }
 
 .denuncias-table tbody tr:hover {
-    background-color: rgba(26, 58, 143, 0.05);
+    background: rgba(0,0,0,0.03);
 }
 
-/* ======= ESTADOS DE DENUNCIA ======= */
+/* ======= Status ======= */
 .status {
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
+    display: inline-block;
+    white-space: nowrap;
 }
 
-.status-received {
-    background-color: #e3f2fd;
-    color: #1976d2;
-    border: 1px solid #bbdefb;
-}
+.status-received { background: #e3f2fd; color: #1976d2; }
+.status-in-process { background: #fff3e0; color: #f57c00; }
+.status-resolved { background: #e8f5e8; color: #2e7d32; }
+.status-rejected { background: #ffebee; color: #c62828; }
 
-.status-in-process {
-    background-color: #fff3e0;
-    color: #f57c00;
-    border: 1px solid #ffe0b2;
-}
-
-.status-resolved {
-    background-color: #e8f5e8;
-    color: #2e7d32;
-    border: 1px solid #c8e6c9;
-}
-
-.status-rejected {
-    background-color: #ffebee;
-    color: #c62828;
-    border: 1px solid #ffcdd2;
-}
-
-/* ======= SIN RESULTADOS ======= */
-.no-results {
+/* ======= No Results / Error ======= */
+.no-results,
+.error-results {
     text-align: center;
     padding: 40px;
-    background: var(--background-color);
     border-radius: 10px;
-    border: 2px dashed var(--border-color);
 }
 
-.no-results p {
+.no-results {
+    background: var(--bg);
+    border: 2px dashed var(--border);
+}
+
+.error-results {
+    background: #ffebee;
+    border: 2px solid #ffcdd2;
+}
+
+.no-results-content h3,
+.error-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.no-results-content h3 { color: var(--primary); }
+.error-content h3 { color: #c62828; }
+
+.no-results-content p,
+.error-content p {
     font-size: 1.1rem;
-    color: var(--text-light);
-    margin: 0;
+    margin-bottom: 20px;
 }
 
-/* ======= EFECTOS HOVER ======= */
-.navmenu a::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--secondary-color);
-    transition: var(--transition);
-    transform: translateX(-50%);
+.no-results-content p { color: var(--light); }
+.error-content p { color: #c62828; }
+
+.no-results-content ul {
+    list-style: none;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-.navmenu a:hover::before {
-    width: 100%;
+.no-results-content li {
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border);
 }
 
-/* ======= RESPONSIVE ======= */
-@media (max-width: 992px) {
-    .logo h1 {
-        font-size: 1rem;
-    }
-    
-    .navmenu ul {
-        gap: 20px;
-    }
-    
-    .buscar-denuncia h2 {
-        font-size: 2.2rem;
-    }
+.no-results-content li:last-child {
+    border-bottom: none;
 }
 
+/* ======= Animation ======= */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ======= Responsive ======= */
 @media (max-width: 768px) {
-    .header .container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .logo {
-        justify-content: center;
-    }
-    
-    .navmenu ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    
-    .buscar-denuncia-page {
-        padding-top: 120px;
-    }
-    
-    .buscar-denuncia.section {
-        padding: 40px 0;
-    }
-    
-    .search-container {
-        padding: 30px 20px;
-    }
-    
-    .results-container {
-        padding: 20px 15px;
-    }
-    
-    .denuncias-table th,
-    .denuncias-table td {
-        padding: 10px 8px;
-        font-size: 0.9rem;
-    }
-    
-    .buscar-denuncia h2 {
-        font-size: 2rem;
-    }
+    .header .container { flex-direction: column; gap: 15px; }
+    .navmenu ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .buscar-denuncia-page { padding-top: 140px; }
+    .buscar-denuncia h2 { font-size: 2rem; }
+    .search-container, .results-container { padding: 25px 15px; }
+    .denuncias-table th, .denuncias-table td { padding: 10px 8px; font-size: 0.9rem; }
 }
 
 @media (max-width: 576px) {
-    .logo {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .logo img {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-    
-    .logo h1 {
-        font-size: 16px;
-    }
-    
-    .navmenu ul {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-    
-    .buscar-denuncia h2 {
-        font-size: 1.8rem;
-    }
-    
-    .search-container {
-        padding: 20px 15px;
-    }
-    
-    .input-with-example {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .example-code {
-        position: static;
-        margin-top: 5px;
-        font-size: 0.8rem;
-    }
-    
-    .btn-search {
-        width: 100%;
-        padding: 15px;
-    }
-    
-    .denuncias-table {
-        font-size: 0.8rem;
-    }
-    
-    .denuncias-table th,
-    .denuncias-table td {
-        padding: 8px 5px;
-    }
-    
-    .status {
-        font-size: 0.75rem;
-        padding: 4px 8px;
-    }
-}
-
-/* ======= ANIMACIONES ======= */
-.search-container,
-.results-container,
-.no-results {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ======= ESTILOS PARA EL SCRIPT ======= */
-.results-container,
-.no-results {
-    display: none;
-}
-
-.results-container.show,
-.no-results.show {
-    display: block;
-    animation: fadeInUp 0.6s ease-out;
+    .logo { flex-direction: column; text-align: center; }
+    .logo img { margin: 0 0 10px 0; }
+    .logo h1 { font-size: 0.9rem; }
+    .navmenu ul { flex-direction: column; gap: 10px; }
+    .buscar-denuncia h2 { font-size: 1.6rem; }
+    .search-container { padding: 20px 15px; }
+    .btn-search { width: 100%; }
+    .denuncias-table th, .denuncias-table td { padding: 8px 5px; font-size: 0.85rem; }
+    .status { font-size: 0.7rem; padding: 4px 8px; }
 }

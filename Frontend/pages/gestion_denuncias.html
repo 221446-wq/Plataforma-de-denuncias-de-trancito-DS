@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Denuncias - Plataforma de Denuncias Virtuales</title>
+    <title>Gestión de Denuncias</title>
     <link rel="shortcut icon" href="../assets/icons/Logo.jpg"> 
     <link href="../css/gestion_denuncias.css" rel="stylesheet">
 </head>
-
+<!-- Configuración de la API -->
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/gestionDenuncias.js"></script>
 <body class="gestion-page">
 
     <header id="header" class="header fixed-top">
@@ -42,7 +46,7 @@
                 <div class="col-12">
                     <div class="panel-card">
                         <h3 class="panel-title">Panel de Autoridad</h3>
-                        <p class="panel-welcome">Gestión de denuncias de tránsito.<br>Bienvenido Funcionario <strong>JUAN</strong></p>
+                        <p class="panel-welcome">Gestión de denuncias de tránsito.<br>Bienvenido Funcionario <strong id="user-name">JUAN CARLOS</strong></p>
                         
                         <!-- Estadísticas rápidas -->
                         <div class="stats-grid">
@@ -52,12 +56,17 @@
                             </div>
                             <div class="stat-card">
                                 <div class="stat-number">4</div>
-                                <div class="stat-label">Pendientes</div>
+                                <div class="stat-label">En proceso</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Recibidas</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-number">1</div>
                                 <div class="stat-label">Resueltas</div>
                             </div>
+                            
                             <div class="stat-card highlight">
                                 <a href="estadisticas.html" class="stat-link">
                                     <div class="stat-number">📊</div>
@@ -78,10 +87,10 @@
                                     <label>Estado</label>
                                     <select class="filtro-select">
                                         <option>Todos los estados</option>
-                                        <option>Recibido</option>
-                                        <option>En Proceso</option>
-                                        <option>Resuelta</option>
-                                        <option>Archivada</option>
+                                        <option value="recibido">Recibido</option>
+                                        <option value="en_proceso">En Proceso</option>
+                                        <option value="resuelta">Resuelta</option>
+                                        <option value="archivada">Archivada</option>
                                     </select>
                                 </div>
                                 <div class="filtro-group">
@@ -132,53 +141,6 @@
             </div>
         </div>
     </main>
-
-    <script>
-        // Tu código JavaScript permanece igual
-        function cambiarEstado(select, denunciaId) {
-            const valor = select.value;
-            
-            if (valor === 'ver') {
-                window.location.href = `detalle_denuncia.html?id=${denunciaId}`;
-            } else if (valor) {
-                const fila = select.closest('tr');
-                const estadoCell = fila.querySelector('.estado');
-                
-                switch(valor) {
-                    case 'recibido':
-                        estadoCell.textContent = 'Recibido';
-                        estadoCell.className = 'estado recibido';
-                        break;
-                    case 'proceso':
-                        estadoCell.textContent = 'En Proceso';
-                        estadoCell.className = 'estado proceso';
-                        break;
-                    case 'resuelta':
-                        estadoCell.textContent = 'Resuelta';
-                        estadoCell.className = 'estado resuelta';
-                        break;
-                }
-                
-                select.value = '';
-                alert(`Estado de la denuncia ${denunciaId} cambiado a: ${estadoCell.textContent}`);
-            }
-        }
-
-        document.querySelector('.filtro-btn').addEventListener('click', function() {
-            alert('Filtros aplicados (en una implementación real, esto filtraría la tabla)');
-        });
-
-        document.querySelector('.filtro-btn.secondary').addEventListener('click', function() {
-            document.querySelectorAll('.filtro-input, .filtro-select').forEach(element => {
-                if (element.tagName === 'INPUT') {
-                    element.value = '';
-                } else {
-                    element.selectedIndex = 0;
-                }
-            });
-            alert('Filtros limpiados');
-        });
-    </script>
-
+    
 </body>
 </html>

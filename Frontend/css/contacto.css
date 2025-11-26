@@ -1,49 +1,38 @@
-/* contacto.css - Versión Corregida */
-
-/* ======= RESET Y VARIABLES ======= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* ======= Variables ======= */
 :root {
-    --primary-color: #000000;
-    --secondary-color: #ff6b00;
-    --text-color: #333;
-    --text-light: #666;
-    --white: #ffffff;
-    --background-color: #f8f9fa;
-    --border-color: #e0e0e0;
-    --shadow: 0 2px 10px rgba(0,0,0,0.1);
-    --shadow-hover: 0 5px 20px rgba(0,0,0,0.15);
-    --transition: all 0.3s ease;
+    --primary: #000;
+    --secondary: #ff6b00;
+    --text: #333;
+    --light: #666;
+    --white: #fff;
+    --bg: #f8f9fa;
+    --border: #e0e0e0;
 }
 
-/* ======= ESTILOS GENERALES ======= */
+/* ======= Base ======= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body.contacto-page {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: var(--text);
+    background: var(--bg);
     padding-top: 80px;
 }
 
 .container {
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-/* ======= HEADER IDÉNTICO AL DE SOBRE NOSOTROS ======= */
+/* ======= Header ======= */
 .header {
     background: var(--white);
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     padding: 15px 0;
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
     z-index: 1000;
 }
@@ -62,18 +51,15 @@ body.contacto-page {
 
 .logo img {
     height: 50px;
-    width: auto;
     margin-right: 15px;
 }
 
 .logo h1 {
     font-size: 18px;
-    color: var(--primary-color);
+    color: var(--primary);
     font-weight: bold;
-    margin: 0;
 }
 
-/* ======= NAVEGACIÓN ======= */
 .navmenu ul {
     display: flex;
     list-style: none;
@@ -82,17 +68,15 @@ body.contacto-page {
 
 .navmenu a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
     padding: 5px 0;
-    transition: var(--transition);
+    transition: 0.3s;
     position: relative;
 }
 
 .navmenu a:hover,
-.navmenu a.active {
-    color: var(--primary-color);
-}
+.navmenu a.active { color: var(--primary); }
 
 .navmenu a.active::after {
     content: '';
@@ -101,95 +85,76 @@ body.contacto-page {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: var(--primary-color);
+    background: var(--primary);
 }
 
-/* ======= CONTENIDO PRINCIPAL ======= */
+/* ======= Main ======= */
 .contacto-container {
     padding: 60px 0;
 }
 
-/* ======= TÍTULOS ======= */
-.text-center {
-    text-align: center;
-}
-
-.mb-5 {
-    margin-bottom: 3rem;
-}
+.text-center { text-align: center; }
 
 .contacto-title {
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 10px;
 }
 
 .contacto-subtitle {
     font-size: 1.2rem;
-    color: var(--text-light);
+    color: var(--light);
     font-weight: normal;
+    margin-bottom: 3rem;
 }
 
-/* ======= LAYOUT GRID ======= */
+/* ======= Grid ======= */
 .row {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
 }
 
-.justify-content-center {
-    justify-content: center;
-}
+.justify-content-center { justify-content: center; }
 
-.col-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 0 15px;
-}
-
-.col-md-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-    padding: 0 15px;
-}
-
+.col-12,
+.col-md-6,
 .col-md-8 {
-    flex: 0 0 66.666%;
-    max-width: 66.666%;
     padding: 0 15px;
 }
 
-/* ======= TARJETAS DE CONTACTO ======= */
-.mb-4 {
-    margin-bottom: 1.5rem;
-}
+.col-12 { width: 100%; }
+.col-md-8 { width: 66.666%; }
+.col-md-6 { width: 50%; }
 
+/* ======= Cards ======= */
 .contacto-card {
     background: var(--white);
     border-radius: 10px;
     padding: 30px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
     height: 100%;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
 }
 
 .contacto-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
 
 .contacto-card-title {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border);
     font-weight: 600;
 }
 
-/* ======= INFORMACIÓN DE CONTACTO ======= */
+/* ======= Info ======= */
 .contacto-info {
     margin-bottom: 25px;
 }
@@ -200,11 +165,11 @@ body.contacto-page {
 
 .contacto-info-title {
     font-size: 1.1rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 8px;
     font-weight: 600;
-    position: relative;
     padding-left: 20px;
+    position: relative;
 }
 
 .contacto-info-title::before {
@@ -215,25 +180,24 @@ body.contacto-page {
     transform: translateY(-50%);
     width: 8px;
     height: 8px;
-    background-color: var(--secondary-color);
+    background: var(--secondary);
     border-radius: 50%;
 }
 
 .contacto-text {
-    color: var(--text-light);
+    color: var(--light);
     line-height: 1.6;
-    margin: 0;
 }
 
-/* ======= MAPA PLACEHOLDER ======= */
+/* ======= Mapa ======= */
 .mapa-placeholder {
-    background: linear-gradient(135deg, #f0f4ff 0%, #e6eeff 100%);
-    border: 2px dashed var(--primary-color);
+    background: linear-gradient(135deg, #f0f4ff, #e6eeff);
+    border: 2px dashed var(--primary);
     border-radius: 8px;
     padding: 40px 20px;
     text-align: center;
     margin-bottom: 25px;
-    color: var(--primary-color);
+    color: var(--primary);
     font-weight: 500;
 }
 
@@ -247,18 +211,15 @@ body.contacto-page {
     opacity: 0.8;
 }
 
-/* ======= SECCIÓN DE AYUDA ======= */
-.mt-4 {
-    margin-top: 1.5rem;
-}
-
+/* ======= Help ======= */
 .contacto-help {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #2a4ba8 100%);
+    background: linear-gradient(135deg, #000, #2a4ba8);
     color: var(--white);
     border-radius: 10px;
     padding: 30px;
     text-align: center;
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-top: 1.5rem;
 }
 
 .contacto-help h4 {
@@ -270,123 +231,30 @@ body.contacto-page {
 .contacto-help p {
     font-size: 1.1rem;
     line-height: 1.6;
-    margin: 0;
     opacity: 0.9;
 }
 
-/* ======= EFECTOS HOVER ======= */
-.navmenu a::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--secondary-color);
-    transition: var(--transition);
-    transform: translateX(-50%);
-}
-
-.navmenu a:hover::before {
-    width: 100%;
-}
-
-/* ======= RESPONSIVE ======= */
-@media (max-width: 992px) {
-    .logo h1 {
-        font-size: 16px;
-    }
-    
-    .navmenu ul {
-        gap: 20px;
-    }
-    
-    .contacto-title {
-        font-size: 2.2rem;
-    }
-}
-
+/* ======= Responsive ======= */
 @media (max-width: 768px) {
-    .header .container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .logo {
-        justify-content: center;
-    }
-    
-    .navmenu ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    
-    .col-md-6,
-    .col-md-8 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-    
-    body.contacto-page {
-        padding-top: 120px;
-    }
-    
-    .contacto-container {
-        padding: 40px 0;
-    }
-    
-    .contacto-card {
-        padding: 25px 20px;
-    }
-    
-    .contacto-title {
-        font-size: 2rem;
-    }
+    .header .container { flex-direction: column; gap: 15px; }
+    .logo { justify-content: center; }
+    .navmenu ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .col-md-6, .col-md-8 { width: 100%; }
+    body.contacto-page { padding-top: 120px; }
+    .contacto-container { padding: 40px 0; }
+    .contacto-card { padding: 25px 20px; }
+    .contacto-title { font-size: 2rem; }
 }
 
 @media (max-width: 576px) {
-    .logo {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .logo img {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-    
-    .logo h1 {
-        font-size: 14px;
-    }
-    
-    .navmenu ul {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-    
-    .contacto-title {
-        font-size: 1.8rem;
-    }
-    
-    .contacto-subtitle {
-        font-size: 1rem;
-    }
-    
-    .contacto-card-title {
-        font-size: 1.3rem;
-    }
-    
-    .contacto-help {
-        padding: 20px 15px;
-    }
-    
-    .contacto-help h4 {
-        font-size: 1.3rem;
-    }
-    
-    .contacto-help p {
-        font-size: 1rem;
-    }
+    .logo { flex-direction: column; text-align: center; }
+    .logo img { margin: 0 0 10px 0; }
+    .logo h1 { font-size: 14px; }
+    .navmenu ul { flex-direction: column; gap: 10px; }
+    .contacto-title { font-size: 1.8rem; }
+    .contacto-subtitle { font-size: 1rem; }
+    .contacto-card-title { font-size: 1.3rem; }
+    .contacto-help { padding: 20px 15px; }
+    .contacto-help h4 { font-size: 1.3rem; }
+    .contacto-help p { font-size: 1rem; }
 }

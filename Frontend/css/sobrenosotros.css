@@ -1,40 +1,35 @@
-/* sobrenosotros.css - Versión Simplificada y Funcional */
+/* Variables */
+:root {
+    --primary: #000;
+    --text: #333;
+    --text-light: #666;
+    --white: #fff;
+    --bg: #f8f9fa;
+    --shadow: 0 2px 10px rgba(0,0,0,.1);
+}
 
-/* ======= RESET BÁSICO ======= */
+/* Base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ======= VARIABLES ======= */
-:root {
-    --primary-color: #000000;
-    --secondary-color: #ff6b00;
-    --text-color: #333;
-    --text-light: #666;
-    --white: #ffffff;
-    --background-color: #f8f9fa;
-    --shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-/* ======= ESTILOS GENERALES ======= */
-body.sobrenosotros-page {
-    font-family: 'Arial', sans-serif;
+body {
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
-    padding-top: 80px; /* Espacio para el header fijo */
+    color: var(--text);
+    background: var(--bg);
+    padding-top: 80px;
 }
 
 .container {
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* ======= HEADER ======= */
+/* Header */
 .header {
     background: var(--white);
     box-shadow: var(--shadow);
@@ -60,17 +55,16 @@ body.sobrenosotros-page {
 
 .logo img {
     height: 50px;
-    width: auto;
     margin-right: 15px;
 }
 
 .logo h1 {
     font-size: 18px;
-    color: var(--primary-color);
+    color: var(--primary);
     font-weight: bold;
 }
 
-/* ======= NAVEGACIÓN ======= */
+/* Navegación */
 .navmenu ul {
     display: flex;
     list-style: none;
@@ -79,22 +73,22 @@ body.sobrenosotros-page {
 
 .navmenu a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
     padding: 5px 0;
-    transition: color 0.3s ease;
+    transition: color .3s;
 }
 
 .navmenu a:hover,
 .navmenu a.active {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .navmenu a.active {
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary);
 }
 
-/* ======= SECCIÓN PRINCIPAL ======= */
+/* Layout */
 #main {
     padding: 40px 0;
 }
@@ -104,23 +98,32 @@ body.sobrenosotros-page {
     padding: 60px 0;
 }
 
-/* ======= GRID LAYOUT ======= */
 .row {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
 }
 
-.col-lg-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
+.col-lg-6,
+.col-xl-4,
+.col-md-6 {
     padding: 0 15px;
 }
 
-/* ======= CONTENIDO DE TEXTO ======= */
-.content h2.section-title {
+.col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.col-xl-4 {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+}
+
+/* Contenido */
+.section-title {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 30px;
 }
 
@@ -131,11 +134,7 @@ body.sobrenosotros-page {
     margin-bottom: 20px;
 }
 
-/* ======= IMAGEN ======= */
-.position-relative {
-    position: relative;
-}
-
+/* Imagen */
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -146,19 +145,9 @@ body.sobrenosotros-page {
     box-shadow: var(--shadow);
 }
 
-/* ======= ICON BOXES ======= */
+/* Icon Boxes */
 .mt-5 {
     margin-top: 3rem;
-}
-
-.row.gy-4 {
-    margin: -15px;
-}
-
-.col-xl-4 {
-    flex: 0 0 33.333%;
-    max-width: 33.333%;
-    padding: 15px;
 }
 
 .icon-box {
@@ -168,7 +157,7 @@ body.sobrenosotros-page {
     text-align: center;
     box-shadow: var(--shadow);
     border: 1px solid #eaeaea;
-    transition: transform 0.3s ease;
+    transition: transform .3s;
     height: 100%;
 }
 
@@ -178,24 +167,23 @@ body.sobrenosotros-page {
 
 .icon-box i {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 20px;
     display: block;
 }
 
 .icon-box h3 {
     font-size: 1.3rem;
-    color: var(--text-color);
+    color: var(--text);
     margin-bottom: 15px;
 }
 
 .icon-box p {
     font-size: 1rem;
     color: var(--text-light);
-    margin: 0;
 }
 
-/* ======= RESPONSIVE ======= */
+/* Responsive */
 @media (max-width: 992px) {
     .col-lg-6 {
         flex: 0 0 100%;
@@ -203,13 +191,17 @@ body.sobrenosotros-page {
         margin-bottom: 30px;
     }
     
-    .content h2.section-title {
+    .section-title {
         font-size: 2rem;
         text-align: center;
     }
 }
 
 @media (max-width: 768px) {
+    body {
+        padding-top: 120px;
+    }
+    
     .header .container {
         flex-direction: column;
         gap: 15px;
@@ -228,10 +220,6 @@ body.sobrenosotros-page {
     .col-xl-4 {
         flex: 0 0 100%;
         max-width: 100%;
-    }
-    
-    body.sobrenosotros-page {
-        padding-top: 120px;
     }
 }
 

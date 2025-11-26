@@ -1,26 +1,28 @@
-/* registro_cuenta.css */
-
-/* ======= VARIABLES CSS ======= */
+/* Variables */
 :root {
-    --primary-color: #000000;
-    --secondary-color: #ff6b00;
-    --accent-color: #2ecc71;
-    --text-color: #333;
+    --primary: #000;
+    --accent: #2ecc71;
+    --text: #333;
     --text-light: #666;
-    --background-color: #f8f9fa;
-    --white: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 5px 25px rgba(0, 0, 0, 0.15);
-    --transition: all 0.3s ease;
+    --bg: #f8f9fa;
+    --white: #fff;
+    --border: #e0e0e0;
+    --shadow: 0 2px 15px rgba(0,0,0,.1);
+    --shadow-hover: 0 5px 25px rgba(0,0,0,.15);
 }
 
-/* ======= ESTILOS GENERALES ======= */
-.registro-page {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: var(--text);
+    background: var(--bg);
     padding-top: 80px;
 }
 
@@ -30,7 +32,7 @@
     padding: 0 15px;
 }
 
-/* ======= HEADER ======= */
+/* Header */
 .header {
     background: var(--white);
     box-shadow: var(--shadow);
@@ -62,44 +64,28 @@
 .logo h1 {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--primary-color);
-    margin: 0;
+    color: var(--primary);
 }
 
-/* ======= NAVEGACIÓN ======= */
 .navmenu ul {
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
     gap: 30px;
 }
 
 .navmenu a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
-    font-size: 1rem;
     padding: 8px 0;
-    position: relative;
-    transition: var(--transition);
+    transition: color .3s;
 }
 
 .navmenu a:hover {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
-.navmenu a.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-color);
-}
-
-/* ======= SECCIÓN PRINCIPAL ======= */
+/* Sección */
 .registro.section {
     padding: 60px 0;
     background: var(--white);
@@ -113,13 +99,13 @@
 .registro h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 40px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* ======= CONTENEDOR DEL FORMULARIO ======= */
+/* Formulario */
 .form-container {
     max-width: 800px;
     margin: 0 auto;
@@ -127,10 +113,9 @@
     border-radius: 15px;
     padding: 50px;
     box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
 }
 
-/* ======= FORMULARIO DE REGISTRO ======= */
 .form-registro {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -143,50 +128,75 @@
 }
 
 .form-group:nth-child(7),
-.form-group:nth-child(8) {
+.form-group:nth-child(8),
+.mt-4 {
     grid-column: 1 / -1;
 }
 
 .form-group label {
-    font-size: 1rem;
     font-weight: 600;
-    color: var(--text-color);
     margin-bottom: 8px;
 }
 
 .form-group input {
     padding: 12px 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border);
     border-radius: 8px;
     font-size: 1rem;
-    transition: var(--transition);
-    background: var(--white);
-    color: var(--text-color);
+    transition: border-color .3s, box-shadow .3s;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,58,143,.1);
 }
 
 .form-group input::placeholder {
     color: var(--text-light);
-    opacity: 0.7;
+    opacity: .7;
 }
 
-/* ======= BOTÓN DE REGISTRO ======= */
+.form-group input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #e74c3c;
+}
+
+.form-group input:valid:not(:focus):not(:placeholder-shown) {
+    border-color: var(--accent);
+}
+
+/* Indicadores */
+.input-hint,
+.password-hint {
+    font-size: .85rem;
+    color: var(--text-light);
+    margin-top: 5px;
+}
+
+.password-strength-container,
+.input-feedback {
+    margin-top: 5px;
+}
+
+.password-strength,
+.dni-strength {
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e0e0;
+}
+
+.password-match {
+    margin-top: 5px;
+    font-size: .85rem;
+}
+
+/* Botón */
 .mt-4 {
     margin-top: 2rem;
 }
 
-.text-center {
-    text-align: center;
-    grid-column: 1 / -1;
-}
-
 .btn-call-action {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #2a4ba8 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, #2a4ba8 100%);
     color: var(--white);
     border: none;
     padding: 15px 60px;
@@ -194,7 +204,7 @@
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: transform .3s, box-shadow .3s;
     box-shadow: var(--shadow);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -203,115 +213,45 @@
 .btn-call-action:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, #2a4ba8 0%, var(--primary-color) 100%);
 }
 
 .btn-call-action:active {
     transform: translateY(0);
 }
 
-/* ======= EFECTOS HOVER ======= */
-.navmenu a::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--secondary-color);
-    transition: var(--transition);
-    transform: translateX(-50%);
+.login-link {
+    margin-top: 15px;
+    font-size: .95rem;
+    color: var(--text-light);
 }
 
-.navmenu a:hover::before {
-    width: 100%;
+.login-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
 }
 
-/* ======= ANIMACIONES ======= */
-.form-container {
-    animation: slideInUp 0.6s ease-out;
+.login-link a:hover {
+    text-decoration: underline;
 }
 
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ======= ESTILOS PARA VALIDACIÓN ======= */
-.form-group input:invalid:not(:focus):not(:placeholder-shown) {
-    border-color: #e74c3c;
-}
-
-.form-group input:valid:not(:focus):not(:placeholder-shown) {
-    border-color: var(--accent-color);
-}
-
-/* ======= INDICADOR DE FUERZA DE CONTRASEÑA ======= */
-.password-strength {
-    margin-top: 5px;
-    height: 4px;
-    border-radius: 2px;
-    background: #e0e0e0;
-    overflow: hidden;
-}
-
-.password-strength::before {
-    content: '';
-    display: block;
-    height: 100%;
-    width: 0%;
-    background: #e74c3c;
-    transition: width 0.3s ease;
-}
-
-#password:focus ~ .password-strength::before {
-    width: 33.333%;
-}
-
-#password:valid ~ .password-strength::before {
-    width: 66.666%;
-    background: #f39c12;
-}
-
-#password:valid[data-strong="true"] ~ .password-strength::before {
-    width: 100%;
-    background: var(--accent-color);
-}
-
-/* ======= RESPONSIVE ======= */
+/* Responsive */
 @media (max-width: 992px) {
-    .logo h1 {
-        font-size: 1rem;
-    }
-    
-    .navmenu ul {
-        gap: 20px;
-    }
-    
-    .registro h2 {
-        font-size: 2.2rem;
-    }
-    
-    .form-container {
-        padding: 40px 30px;
-    }
+    .logo h1 { font-size: 1rem; }
+    .navmenu ul { gap: 20px; }
+    .registro h2 { font-size: 2.2rem; }
+    .form-container { padding: 40px 30px; }
 }
 
 @media (max-width: 768px) {
+    body { padding-top: 120px; }
+    
     .header .container {
         flex-direction: column;
         gap: 15px;
     }
     
-    .logo {
-        justify-content: center;
-    }
+    .logo { justify-content: center; }
     
     .navmenu ul {
         flex-wrap: wrap;
@@ -319,13 +259,7 @@
         gap: 15px;
     }
     
-    .registro-page {
-        padding-top: 120px;
-    }
-    
-    .registro.section {
-        padding: 40px 0;
-    }
+    .registro.section { padding: 40px 0; }
     
     .form-registro {
         grid-template-columns: 1fr;
@@ -342,9 +276,7 @@
         margin: 0 15px;
     }
     
-    .registro h2 {
-        font-size: 2rem;
-    }
+    .registro h2 { font-size: 2rem; }
     
     .btn-call-action {
         padding: 15px 40px;
@@ -363,9 +295,7 @@
         margin-bottom: 10px;
     }
     
-    .logo h1 {
-        font-size: 16px;
-    }
+    .logo h1 { font-size: 16px; }
     
     .navmenu ul {
         flex-direction: column;
@@ -373,51 +303,18 @@
         text-align: center;
     }
     
-    .registro h2 {
-        font-size: 1.8rem;
-    }
+    .registro h2 { font-size: 1.8rem; }
     
     .form-container {
         padding: 25px 20px;
         margin: 0 10px;
     }
     
-    .form-group input {
-        padding: 10px 12px;
-    }
+    .form-group input { padding: 10px 12px; }
     
     .btn-call-action {
         width: 100%;
         padding: 15px;
         font-size: 1rem;
     }
-}
-
-/* ======= UTILIDADES ======= */
-.d-flex {
-    display: flex;
-}
-
-.align-items-center {
-    align-items: center;
-}
-
-.justify-content-between {
-    justify-content: space-between;
-}
-
-.me-auto {
-    margin-right: auto;
-}
-
-.me-xl-0 {
-    margin-right: 0;
-}
-
-.fixed-top {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
 }

@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Denuncia - Plataforma de Denuncias Virtuales</title>
+    <title>Registro de Denuncia</title>
     <link rel="shortcut icon" href="../assets/icons/Logo.jpg">  
     <link href="../css/registro_denuncia.css" rel="stylesheet">
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
+<!-- Configuración de la API -->
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/gestionDenuncias.js"></script>
 
 <body class="denuncia-page">
 
@@ -47,8 +52,7 @@
                 <div class="col-lg-8 col-md-10">
                     <div class="panel-card">
                         <h3 class="panel-title">Panel del Ciudadano</h3>
-                        <p class="panel-welcome">Bienvenido <strong>JUAN CARLOS</strong>. Desde aquí puedes gestionar tus denuncias.</p>
-                        
+                        <p class="panel-welcome">Bienvenido <strong id="user-name">JUAN CARLOS</strong>. Desde aquí puedes gestionar tus denuncias.</p>
                         <div class="new-denuncia-section">
                             <h4 class="section-title">Crear Nueva Denuncia</h4>
                             
@@ -58,13 +62,13 @@
                                     <label for="tipo-denuncia" class="form-label">Tipo de Denuncia</label>
                                     <select id="tipo-denuncia" class="form-select" required>
                                         <option value="">Seleccione un tipo de denuncia</option>
-                                        <option value="accidente">🚗 Accidente de tránsito</option>
-                                        <option value="mal-estacionado">🅿️ Vehículo mal estacionado</option>
-                                        <option value="semaforo">🚦 Semáforo en mal estado</option>
-                                        <option value="exceso-velocidad">💨 Exceso de velocidad</option>
-                                        <option value="conduccion-peligrosa">⚠️ Conducción peligrosa</option>
-                                        <option value="falta-señalizacion">🚸 Falta de señalización</option>
-                                        <option value="transporte-publico">🚌 Transporte público irregular</option>
+                                        <option value="accidente"> Accidente de tránsito</option>
+                                        <option value="mal-estacionado"> Vehículo mal estacionado</option>
+                                        <option value="semaforo"> Semáforo en mal estado</option>
+                                        <option value="exceso-velocidad"> Exceso de velocidad</option>
+                                        <option value="conduccion-peligrosa"> Conducción peligrosa</option>
+                                        <option value="falta-señalizacion"> Falta de señalización</option>
+                                        <option value="transporte-publico"> Transporte público irregular</option>
                                         <option value="otros">📝 Otros</option>
                                     </select>
                                 </div>
@@ -75,10 +79,10 @@
                                     <div class="geolocation-section">
                                         <div class="map-controls">
                                             <button type="button" class="geolocation-btn" id="obtener-ubicacion">
-                                                📍 Obtener mi ubicación actual
+                                                 Obtener mi ubicación actual
                                             </button>
                                             <button type="button" class="geolocation-btn secondary" id="buscar-direccion">
-                                                🔍 Buscar dirección
+                                                 Buscar dirección
                                             </button>
                                         </div>
                                         
@@ -143,7 +147,7 @@
                                         <input type="checkbox" id="terminos" class="terms-input" required>
                                         <label for="terminos" class="terms-label">
                                             Acepto los 
-                                            <a href="../docs/terminos_condiciones.pdf" target="_blank" class="terms-link">
+                                            <a href="../assets/docs/terminos_condiciones.pdf" target="_blank" class="terms-link">
                                                 Términos y condiciones
                                             </a>
                                         </label>
@@ -162,148 +166,13 @@
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Tu código JavaScript permanece igual
-        let map;
-        let marker;
-        let defaultLocation = [-13.53195, -71.96746]; // Cusco
+    <!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-        // Inicializar mapa
-        function initMap() {
-            map = L.map('map').setView(defaultLocation, 14);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
-            // Marcador inicial
-            marker = L.marker(defaultLocation, {
-                draggable: true
-            }).addTo(map);
-
-            // Actualizar coordenadas cuando se mueve el marcador
-            marker.on('dragend', function() {
-                updateCoordinates(marker.getLatLng());
-            });
-
-            // Actualizar coordenadas al hacer clic en el mapa
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                updateCoordinates(e.latlng);
-            });
-
-            // Inicializar coordenadas
-            updateCoordinates(defaultLocation);
-        }
-
-        // Actualizar campos de coordenadas
-        function updateCoordinates(latlng) {
-            document.getElementById('latitud').value = latlng.lat.toFixed(6);
-            document.getElementById('longitud').value = latlng.lng.toFixed(6);
-            
-            // Obtener dirección usando Nominatim (OpenStreetMap)
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.display_name) {
-                        document.getElementById('direccion').value = data.display_name;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('direccion').value = 'Dirección no disponible';
-                });
-        }
-
-        // Obtener ubicación actual
-        document.getElementById('obtener-ubicacion').addEventListener('click', function() {
-            const button = this;
-            
-            if (navigator.geolocation) {
-                button.textContent = '📍 Obteniendo ubicación...';
-                button.disabled = true;
-                
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        const userLocation = [
-                            position.coords.latitude,
-                            position.coords.longitude
-                        ];
-                        
-                        marker.setLatLng(userLocation);
-                        map.setView(userLocation, 16);
-                        updateCoordinates({lat: userLocation[0], lng: userLocation[1]});
-                        
-                        button.textContent = '📍 Ubicación obtenida ✓';
-                        button.style.backgroundColor = '#28a745';
-                        button.disabled = false;
-                    },
-                    function(error) {
-                        alert('Error al obtener la ubicación: ' + error.message);
-                        button.textContent = '📍 Obtener mi ubicación actual';
-                        button.disabled = false;
-                    }
-                );
-            } else {
-                alert('La geolocalización no es soportada por este navegador.');
-            }
-        });
-
-        // Buscar dirección
-        document.getElementById('buscar-direccion').addEventListener('click', function() {
-            const address = prompt('Ingrese la dirección a buscar:');
-            if (address) {
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.length > 0) {
-                            const location = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-                            marker.setLatLng(location);
-                            map.setView(location, 16);
-                            updateCoordinates({lat: location[0], lng: location[1]});
-                        } else {
-                            alert('No se pudo encontrar la dirección.');
-                        }
-                    })
-                    .catch(error => {
-                        alert('Error al buscar la dirección.');
-                    });
-            }
-        });
-
-        // Búsqueda manual
-        document.getElementById('buscar-manual').addEventListener('click', function() {
-            const address = document.getElementById('input-direccion').value;
-            if (address) {
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.length > 0) {
-                            const location = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-                            marker.setLatLng(location);
-                            map.setView(location, 16);
-                            updateCoordinates({lat: location[0], lng: location[1]});
-                        } else {
-                            alert('No se pudo encontrar la dirección.');
-                        }
-                    })
-                    .catch(error => {
-                        alert('Error al buscar la dirección.');
-                    });
-            }
-        });
-
-        // Inicializar mapa cuando se carga la página
-        document.addEventListener('DOMContentLoaded', initMap);
-
-        // Contador de archivos seleccionados
-        document.querySelectorAll('.form-file').forEach(input => {
-            input.addEventListener('change', function() {
-                const fileCount = this.files.length;
-                const infoElement = this.nextElementSibling;
-                infoElement.textContent = `(${fileCount} archivo${fileCount !== 1 ? 's' : ''} seleccionado${fileCount !== 1 ? 's' : ''})`;
-            });
-        });
-    </script>
+<!-- Scripts de la aplicación -->
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/registroDenuncia.js"></script>
 
 </body>
 </html>

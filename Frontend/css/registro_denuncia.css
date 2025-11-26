@@ -1,26 +1,29 @@
-/* registro_denuncia.css */
-
-/* ======= VARIABLES CSS ======= */
+/* Variables */
 :root {
-    --primary-color: #000000;
-    --secondary-color: #ff6b00;
-    --accent-color: #2ecc71;
-    --text-color: #333;
+    --primary: #000;
+    --secondary: #ff6b00;
+    --accent: #2ecc71;
+    --text: #333;
     --text-light: #666;
-    --background-color: #f8f9fa;
-    --white: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 5px 25px rgba(0, 0, 0, 0.15);
-    --transition: all 0.3s ease;
+    --bg: #f8f9fa;
+    --white: #fff;
+    --border: #e0e0e0;
+    --shadow: 0 2px 15px rgba(0,0,0,.1);
+    --shadow-hover: 0 5px 25px rgba(0,0,0,.15);
 }
 
-/* ======= ESTILOS GENERALES ======= */
-.denuncia-page {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: var(--text);
+    background: var(--bg);
     padding-top: 80px;
 }
 
@@ -30,7 +33,7 @@
     padding: 0 15px;
 }
 
-/* ======= HEADER ======= */
+/* Header */
 .header {
     background: var(--white);
     box-shadow: var(--shadow);
@@ -62,49 +65,32 @@
 .logo h1 {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--primary-color);
-    margin: 0;
+    color: var(--primary);
 }
 
-/* ======= NAVEGACIÓN ======= */
 .navmenu ul {
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
     gap: 30px;
 }
 
 .navmenu a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
-    font-size: 1rem;
     padding: 8px 0;
-    position: relative;
-    transition: var(--transition);
+    transition: color .3s;
 }
 
 .navmenu a:hover {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
-.navmenu a.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-color);
-}
-
-/* ======= CONTENEDOR PRINCIPAL ======= */
+/* Layout */
 .denuncia-container {
     padding: 40px 0;
 }
 
-/* ======= LAYOUT GRID ======= */
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -115,25 +101,28 @@
     justify-content: center;
 }
 
+.col-12,
+.col-lg-8,
+.col-md-10 {
+    padding: 0 15px;
+}
+
 .col-12 {
     flex: 0 0 100%;
     max-width: 100%;
-    padding: 0 15px;
 }
 
 .col-lg-8 {
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
-    padding: 0 15px;
 }
 
 .col-md-10 {
     flex: 0 0 83.333333%;
     max-width: 83.333333%;
-    padding: 0 15px;
 }
 
-/* ======= TÍTULOS ======= */
+/* Títulos */
 .text-center {
     text-align: center;
 }
@@ -145,14 +134,14 @@
 .denuncia-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 10px;
     text-transform: uppercase;
 }
 
 .denuncia-subtitle {
     font-size: 1.5rem;
-    color: var(--text-color);
+    color: var(--text);
     margin-bottom: 5px;
     font-weight: 600;
 }
@@ -166,23 +155,23 @@
 
 .denuncia-gerencia {
     font-size: 1.1rem;
-    color: var(--secondary-color);
+    color: var(--secondary);
     font-weight: 600;
     text-transform: uppercase;
 }
 
-/* ======= PANEL DE CIUDADANO ======= */
+/* Panel */
 .panel-card {
     background: var(--white);
     border-radius: 15px;
     padding: 40px;
     box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
 }
 
 .panel-title {
     font-size: 1.8rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 15px;
     font-weight: 700;
 }
@@ -192,28 +181,28 @@
     color: var(--text-light);
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border);
 }
 
 .panel-welcome strong {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
-/* ======= SECCIÓN DE NUEVA DENUNCIA ======= */
+/* Sección */
 .new-denuncia-section {
     margin-top: 30px;
 }
 
 .section-title {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
     margin-bottom: 25px;
     font-weight: 600;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border);
 }
 
-/* ======= FORMULARIO ======= */
+/* Formulario */
 .denuncia-form {
     display: flex;
     flex-direction: column;
@@ -226,31 +215,36 @@
 }
 
 .form-label {
-    font-size: 1rem;
     font-weight: 600;
-    color: var(--text-color);
     margin-bottom: 8px;
 }
 
 .form-select,
 .form-textarea,
-.form-file {
+.form-file,
+.manual-input,
+.coordinate-input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border);
     border-radius: 8px;
     font-size: 1rem;
-    transition: var(--transition);
     background: var(--white);
-    color: var(--text-color);
+    color: var(--text);
     font-family: inherit;
 }
 
+.form-select,
+.form-textarea {
+    transition: border-color .3s, box-shadow .3s;
+}
+
 .form-select:focus,
-.form-textarea:focus {
+.form-textarea:focus,
+.manual-input:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,58,143,.1);
 }
 
 .form-textarea {
@@ -261,28 +255,29 @@
 .form-file {
     padding: 10px 15px;
     background: #f8f9fa;
-    border: 2px dashed var(--border-color);
+    border-style: dashed;
     cursor: pointer;
+    transition: border-color .3s, background .3s;
 }
 
 .form-file:hover {
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     background: #f0f4ff;
 }
 
 .file-info {
     color: var(--text-light);
-    font-size: 0.85rem;
+    font-size: .85rem;
     margin-top: 5px;
     display: block;
 }
 
-/* ======= SECCIÓN DE GEOLOCALIZACIÓN ======= */
+/* Geolocalización */
 .geolocation-section {
     background: #f8f9fa;
     border-radius: 10px;
     padding: 20px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
 }
 
 .map-controls {
@@ -292,29 +287,34 @@
     flex-wrap: wrap;
 }
 
-.geolocation-btn {
+.geolocation-btn,
+.manual-btn {
     padding: 12px 20px;
-    background: var(--primary-color);
+    background: var(--primary);
     color: var(--white);
     border: none;
     border-radius: 8px;
-    font-size: 0.95rem;
+    font-size: .95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: background .3s, transform .3s, box-shadow .3s;
+}
+
+.geolocation-btn {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.geolocation-btn:hover {
+.geolocation-btn:hover,
+.manual-btn:hover {
     background: #2a4ba8;
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
 
 .geolocation-btn.secondary {
-    background: var(--secondary-color);
+    background: var(--secondary);
 }
 
 .geolocation-btn.secondary:hover {
@@ -328,28 +328,32 @@
     box-shadow: none;
 }
 
-/* ======= MAPA INTERACTIVO ======= */
+.manual-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+/* Mapa */
 .map-container {
     height: 300px;
     border-radius: 8px;
     margin-bottom: 20px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border);
     overflow: hidden;
 }
 
-/* ======= BÚSQUEDA MANUAL ======= */
+/* Búsqueda Manual */
 .manual-location {
     margin-bottom: 20px;
     padding: 15px;
     background: var(--white);
     border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
 }
 
 .manual-location h5 {
     margin-bottom: 10px;
-    color: var(--text-color);
-    font-size: 1rem;
+    color: var(--text);
 }
 
 .manual-inputs {
@@ -360,33 +364,12 @@
 .manual-input {
     flex: 1;
     padding: 10px 15px;
-    border: 2px solid var(--border-color);
+    border-width: 2px;
     border-radius: 6px;
-    font-size: 0.95rem;
+    font-size: .95rem;
 }
 
-.manual-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.manual-btn {
-    padding: 10px 20px;
-    background: var(--primary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.manual-btn:hover {
-    background: #2a4ba8;
-}
-
-/* ======= COORDENADAS ======= */
+/* Coordenadas */
 .coordinates-display {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -404,18 +387,16 @@
 }
 
 .coordinate-group label {
-    font-size: 0.9rem;
+    font-size: .9rem;
     font-weight: 600;
-    color: var(--text-color);
     margin-bottom: 5px;
 }
 
 .coordinate-input {
     padding: 10px 12px;
-    border: 1px solid var(--border-color);
+    border-width: 1px;
     border-radius: 6px;
-    background: var(--white);
-    font-size: 0.9rem;
+    font-size: .9rem;
     color: var(--text-light);
 }
 
@@ -424,7 +405,7 @@
     cursor: not-allowed;
 }
 
-/* ======= TÉRMINOS Y CONDICIONES ======= */
+/* Términos */
 .terms-group {
     margin-top: 10px;
 }
@@ -442,13 +423,12 @@
 }
 
 .terms-label {
-    font-size: 0.95rem;
-    color: var(--text-color);
+    font-size: .95rem;
     cursor: pointer;
 }
 
 .terms-link {
-    color: var(--primary-color);
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
 }
@@ -458,9 +438,9 @@
     color: #2a4ba8;
 }
 
-/* ======= BOTÓN DE DENUNCIA ======= */
+/* Botón */
 .denuncia-btn {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #2a4ba8 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, #2a4ba8 100%);
     color: var(--white);
     border: none;
     padding: 15px 40px;
@@ -468,10 +448,10 @@
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: transform .3s, box-shadow .3s;
     box-shadow: var(--shadow);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     margin-top: 20px;
     align-self: center;
 }
@@ -479,75 +459,49 @@
 .denuncia-btn:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, #2a4ba8 0%, var(--primary-color) 100%);
 }
 
 .denuncia-btn:active {
     transform: translateY(0);
 }
 
-/* ======= EFECTOS HOVER ======= */
-.navmenu a::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--secondary-color);
-    transition: var(--transition);
-    transform: translateX(-50%);
+/* Leaflet */
+.leaflet-container {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-.navmenu a:hover::before {
-    width: 100%;
+.leaflet-popup-content {
+    font-size: .9rem;
 }
 
-/* ======= ANIMACIONES ======= */
-.panel-card {
-    animation: slideInUp 0.6s ease-out;
+.leaflet-control-zoom a {
+    background: var(--white);
+    color: var(--primary);
+    border: 1px solid var(--border);
 }
 
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.leaflet-control-zoom a:hover {
+    background: var(--primary);
+    color: var(--white);
 }
 
-/* ======= RESPONSIVE ======= */
+/* Responsive */
 @media (max-width: 992px) {
-    .logo h1 {
-        font-size: 1rem;
-    }
-    
-    .navmenu ul {
-        gap: 20px;
-    }
-    
-    .col-lg-8 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-    
-    .denuncia-title {
-        font-size: 2.2rem;
-    }
+    .logo h1 { font-size: 1rem; }
+    .navmenu ul { gap: 20px; }
+    .col-lg-8 { flex: 0 0 100%; max-width: 100%; }
+    .denuncia-title { font-size: 2.2rem; }
 }
 
 @media (max-width: 768px) {
+    body { padding-top: 120px; }
+    
     .header .container {
         flex-direction: column;
         gap: 15px;
     }
     
-    .logo {
-        justify-content: center;
-    }
+    .logo { justify-content: center; }
     
     .navmenu ul {
         flex-wrap: wrap;
@@ -555,43 +509,20 @@
         gap: 15px;
     }
     
-    .denuncia-page {
-        padding-top: 120px;
-    }
-    
-    .col-md-10 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+    .col-md-10 { flex: 0 0 100%; max-width: 100%; }
     
     .panel-card {
         padding: 30px 25px;
         margin: 0 10px;
     }
     
-    .denuncia-title {
-        font-size: 2rem;
-    }
+    .denuncia-title { font-size: 2rem; }
+    .denuncia-subtitle { font-size: 1.3rem; }
     
-    .denuncia-subtitle {
-        font-size: 1.3rem;
-    }
-    
-    .map-controls {
-        flex-direction: column;
-    }
-    
-    .geolocation-btn {
-        justify-content: center;
-    }
-    
-    .coordinates-display {
-        grid-template-columns: 1fr;
-    }
-    
-    .manual-inputs {
-        flex-direction: column;
-    }
+    .map-controls { flex-direction: column; }
+    .geolocation-btn { justify-content: center; }
+    .coordinates-display { grid-template-columns: 1fr; }
+    .manual-inputs { flex-direction: column; }
 }
 
 @media (max-width: 576px) {
@@ -605,9 +536,7 @@
         margin-bottom: 10px;
     }
     
-    .logo h1 {
-        font-size: 16px;
-    }
+    .logo h1 { font-size: 16px; }
     
     .navmenu ul {
         flex-direction: column;
@@ -615,66 +544,25 @@
         text-align: center;
     }
     
-    .denuncia-container {
-        padding: 20px 0;
-    }
+    .denuncia-container { padding: 20px 0; }
     
     .panel-card {
         padding: 25px 20px;
         margin: 0 5px;
     }
     
-    .denuncia-title {
-        font-size: 1.8rem;
-    }
+    .denuncia-title { font-size: 1.8rem; }
+    .denuncia-subtitle { font-size: 1.1rem; }
+    .denuncia-department { font-size: 1rem; }
+    .denuncia-gerencia { font-size: .95rem; }
+    .panel-title { font-size: 1.5rem; }
+    .section-title { font-size: 1.3rem; }
     
-    .denuncia-subtitle {
-        font-size: 1.1rem;
-    }
-    
-    .denuncia-department {
-        font-size: 1rem;
-    }
-    
-    .denuncia-gerencia {
-        font-size: 0.95rem;
-    }
-    
-    .panel-title {
-        font-size: 1.5rem;
-    }
-    
-    .section-title {
-        font-size: 1.3rem;
-    }
-    
-    .geolocation-section {
-        padding: 15px;
-    }
+    .geolocation-section { padding: 15px; }
     
     .denuncia-btn {
         width: 100%;
         padding: 15px;
         font-size: 1rem;
     }
-}
-
-/* ======= ESTILOS PARA LEAFLET ======= */
-.leaflet-container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.leaflet-popup-content {
-    font-size: 0.9rem;
-}
-
-.leaflet-control-zoom a {
-    background: var(--white);
-    color: var(--primary-color);
-    border: 1px solid var(--border-color);
-}
-
-.leaflet-control-zoom a:hover {
-    background: var(--primary-color);
-    color: var(--white);
 }

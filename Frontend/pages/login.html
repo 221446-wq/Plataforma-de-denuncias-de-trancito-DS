@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!--Datos en la pestaña del navegador-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Plataforma de Denuncias Virtuales</title>
+    <title>Iniciar Sesión</title>
     <link rel="shortcut icon" href="../assets/icons/Logo.jpg">  
     <link href="../css/login.css" rel="stylesheet">
 </head>
+<!-- Configuración de la API -->
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/gestionDenuncias.js"></script>
 
 <body class="login-page">
-
+    <!--Encabezado-->
     <header id="header" class="header fixed-top">
         <div class="container">
             <a href="index.html" class="logo">        
                 <img src="../assets/icons/Logo_Municipalidad_Cusco.png" alt="Logo Municipalidad del Cusco">
                 <h1>PLATAFORMA DE DENUNCIAS VIRTUALES</h1>        
             </a>
-
             <nav id="navmenu" class="navmenu">
+                <!--Lista del encabezado-->
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="sobrenosotros.html">Nosotros</a></li>                
@@ -52,8 +58,8 @@
                                 <select id="tipo-usuario" class="form-select" required>
                                     <option value="">Seleccione un tipo de usuario</option>
                                     <option value="ciudadano">Ciudadano</option>
+                                    <option value="funcionario">Funcionario</option>
                                     <option value="administrador">Administrador</option>
-                                    <option value="autoridad">Autoridad</option>
                                 </select>
                             </div>
 
@@ -69,6 +75,5 @@
             </div>
         </div>
     </main>
-
 </body>
 </html>

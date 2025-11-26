@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buscar Denuncia - Plataforma de Denuncias Virtuales</title>
+  <title>Buscar Denuncia</title>
   <link rel="shortcut icon" href="../assets/icons/Logo.jpg">  
   <link href="../css/buscarDenuncias.css" rel="stylesheet">
 </head>
-
 <body class="buscar-denuncia-page">
   <header id="header" class="header fixed-top">
         <div class="container">
@@ -27,7 +26,6 @@
             </nav>   
         </div>
     </header>
-  
 
   <main id="main">
     <section id="buscar-denuncia" class="buscar-denuncia section">
@@ -35,22 +33,31 @@
         <h2 class="text-center">Búsqueda de mi denuncia</h2>
 
         <div class="search-container">
-          <form action="buscar_denuncia.php" method="GET" class="search-form">
+          <form id="searchForm" class="search-form">
             <div class="form-group">
               <label for="codigo">Ingrese el código de su denuncia:</label>
               <div class="input-with-example">
-                <input type="text" id="codigo" name="codigo" placeholder="Ej: X0001" required>
-                <span class="example-code">X0001</span>
+                <input type="text" id="codigo" name="codigo" placeholder="Ej: DEN-0000000000001-XX" required>
               </div>
             </div>
 
             <div class="text-center mt-3">
-              <button type="submit" class="btn-search">Buscar</button>
+              <button type="submit" class="btn-search" id="btnSearch">
+                <span id="btnText">Buscar Denuncia</span>
+                <div id="btnSpinner" class="spinner" style="display: none;"></div>
+              </button>
             </div>
           </form>
         </div>
 
-        <div class="results-container">
+        <!-- Loading -->
+        <div id="loading" class="loading" style="display: none;">
+          <div class="spinner"></div>
+          <p>Buscando denuncia...</p>
+        </div>
+
+        <!-- Resultados -->
+        <div id="resultsContainer" class="results-container" style="display: none;">
           <h3>Resultados de la búsqueda</h3>
           
           <div class="table-responsive">
@@ -61,42 +68,42 @@
                   <th>Descripción</th>
                   <th>Fecha</th>
                   <th>Estado de la denuncia</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>X0001</td>
-                  <td>Vehículo mal estacionado</td>
-                  <td>31/08/2025</td>
-                  <td><span class="status status-received">Recibido</span></td>
-                </tr>
-                <!-- Más filas pueden agregarse aquí dinámicamente -->
+              <tbody id="resultsBody">
+                <!-- Los resultados se cargarán dinámicamente -->
               </tbody>
             </table>
           </div>
-          
-          <div class="no-results" style="display: none;">
-            <p>No se encontraron denuncias con el código proporcionado.</p>
+        </div>
+        
+        <!-- Sin resultados -->
+        <div id="noResults" class="no-results" style="display: none;">
+          <div class="no-results-content">
+            <h3> No se encontró la denuncia</h3>
+            <p>No se encontró ninguna denuncia con el código <strong id="codigoBuscado"></strong>.</p>
+            <ul>
+              <li>- Verifique que el código sea correcto</li>
+              <li>- Asegúrese de no haber ingresado espacios adicionales</li>
+              <li>- Si el problema persiste, contacte con soporte</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div id="errorResults" class="error-results" style="display: none;">
+          <div class="error-content">
+            <h3>Error en la búsqueda</h3>
+            <p id="errorText"></p>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <script>
-    document.querySelector('.search-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const codigo = document.getElementById('codigo').value;
-      
-      // Simulación de búsqueda
-      if (codigo === 'X0001') {
-        document.querySelector('.results-container').style.display = 'block';
-        document.querySelector('.no-results').style.display = 'none';
-      } else {
-        document.querySelector('.results-container').style.display = 'none';
-        document.querySelector('.no-results').style.display = 'block';
-      }
-    });
-  </script>
+  <!-- Scripts -->
+  <script src="../js/config.js"></script>
+  <script src="../js/buscarDenuncia.js"></script>
 </body>
 </html>
