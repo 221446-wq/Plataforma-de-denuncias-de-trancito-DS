@@ -128,7 +128,7 @@ async function registrarDenuncia() {
         console.log('📤 Enviando denuncia con FormData...');
         
         // Usar fetch con FormData
-        const response = await fetch('http://localhost:3000/api/denuncias', {
+        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.DENUNCIAS.CREATE}`, {
             method: 'POST',
             headers: {
                 // No establecer 'Content-Type', el navegador lo hará por nosotros con el boundary correcto
