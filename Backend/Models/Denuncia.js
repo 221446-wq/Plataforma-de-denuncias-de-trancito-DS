@@ -15,7 +15,11 @@ class Denuncia {
         });
 
         // Generar código único para la denuncia
-        const codigo_denuncia = 'DEN-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+        const timestampPart = Date.now().toString().slice(-9); // Últimos 9 dígitos del timestamp
+        const randomPart = Math.random().toString(36).substr(2, 5).toUpperCase(); // 5 caracteres alfanuméricos
+        const codigo_denuncia = `DEN-${timestampPart}-${randomPart}`; // Formato: DEN-XXXXXXXXX-ABCDE (19 caracteres)
+
+        // console.log(`Generated codigo_denuncia: ${codigo_denuncia}, Length: ${codigo_denuncia.length}`);
 
         const query = `
             INSERT INTO denuncias (
