@@ -52,7 +52,7 @@ class DenunciaController {
                 prioridad: req.query.prioridad
             };
 
-            console.log('🎯 Filtros recibidos:', filters);
+            console.log(' Filtros recibidos:', filters);
 
             // Limpiar filtros vacíos
             Object.keys(filters).forEach(key => {
@@ -68,7 +68,7 @@ class DenunciaController {
                 denuncias = await Denuncia.findAll();
             }
 
-            console.log(`📊 Denuncias encontradas: ${denuncias.length}`);
+            console.log(`Denuncias encontradas: ${denuncias.length}`);
             res.json(denuncias);
 
         } catch (error) {
@@ -133,7 +133,7 @@ class DenunciaController {
             const denuncia = await Denuncia.findByCodigo(codigo);
             
             if (!denuncia) {
-                console.log('❌ Controlador: Denuncia no encontrada con código:', codigo);
+                console.log(' Controlador: Denuncia no encontrada con código:', codigo);
                 return res.status(404).json({ error: 'Denuncia no encontrada' });
             }
 
@@ -141,11 +141,11 @@ class DenunciaController {
             const historial = await Denuncia.getHistorial(denuncia.id);
             denuncia.historial = historial;
 
-            console.log('✅ Controlador: Denuncia encontrada por código:', denuncia.codigo_denuncia);
+            console.log(' Controlador: Denuncia encontrada por código:', denuncia.codigo_denuncia);
             res.json(denuncia);
 
         } catch (error) {
-            console.error('❌ Controlador: Error al obtener denuncia por código:', error);
+            console.error(' Controlador: Error al obtener denuncia por código:', error);
             res.status(500).json({ error: 'Error al obtener denuncia: ' + error.message });
         }
     }

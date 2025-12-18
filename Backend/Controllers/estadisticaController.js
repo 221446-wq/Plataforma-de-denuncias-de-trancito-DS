@@ -2,15 +2,15 @@
 let Estadistica;
 try {
     Estadistica = require('../Models/Estadistica');
-    console.log('✅ Modelo Estadistica cargado correctamente');
+    console.log(' Modelo Estadistica cargado correctamente');
 } catch (error) {
-    console.error('❌ Error cargando modelo Estadistica:', error);
+    console.error(' Error cargando modelo Estadistica:', error);
 }
 
 class EstadisticaController {
     static async getEstadisticasGenerales(req, res) {
         try {
-            console.log('📊 Iniciando getEstadisticasGenerales...');
+            console.log(' Iniciando getEstadisticasGenerales...');
             
             if (!Estadistica) {
                 throw new Error('Modelo Estadistica no disponible');
@@ -26,11 +26,11 @@ class EstadisticaController {
                 archivadas: estadisticas.archivadas || 0
             };
             
-            console.log('✅ Estadísticas generales obtenidas:', estadisticasCompletas);
+            console.log(' Estadísticas generales obtenidas:', estadisticasCompletas);
             res.json(estadisticasCompletas);
             
         } catch (error) {
-            console.error('❌ Error en getEstadisticasGenerales:', error);
+            console.error(' Error en getEstadisticasGenerales:', error);
             res.status(500).json({ 
                 error: 'Error al obtener estadísticas generales',
                 detalle: error.message 
@@ -40,7 +40,7 @@ class EstadisticaController {
 
     static async getPorTipo(req, res) {
         try {
-            console.log('📊 Iniciando getPorTipo...');
+            console.log(' Iniciando getPorTipo...');
             
             if (!Estadistica) {
                 throw new Error('Modelo Estadistica no disponible');
@@ -49,11 +49,11 @@ class EstadisticaController {
             const datos = await Estadistica.getPorTipo();
             const datosSeguros = Array.isArray(datos) ? datos : [];
             
-            console.log('✅ Datos por tipo obtenidos:', datosSeguros.length);
+            console.log(' Datos por tipo obtenidos:', datosSeguros.length);
             res.json(datosSeguros);
             
         } catch (error) {
-            console.error('❌ Error en getPorTipo:', error);
+            console.error(' Error en getPorTipo:', error);
             res.status(500).json({ 
                 error: 'Error al obtener datos por tipo',
                 detalle: error.message 
@@ -66,7 +66,7 @@ class EstadisticaController {
             const { anio } = req.params;
             const anioUsar = anio || new Date().getFullYear();
             
-            console.log('📅 Iniciando getEvolucionMensual para año:', anioUsar);
+            console.log(' Iniciando getEvolucionMensual para año:', anioUsar);
             
             if (!Estadistica) {
                 throw new Error('Modelo Estadistica no disponible');
@@ -75,11 +75,11 @@ class EstadisticaController {
             const datos = await Estadistica.getEvolucionMensual(anioUsar);
             const datosCompletos = this.completarMesesFaltantes(datos);
             
-            console.log('✅ Evolución mensual obtenida:', datosCompletos.length);
+            console.log(' Evolución mensual obtenida:', datosCompletos.length);
             res.json(datosCompletos);
             
         } catch (error) {
-            console.error('❌ Error en getEvolucionMensual:', error);
+            console.error(' Error en getEvolucionMensual:', error);
             res.status(500).json({ 
                 error: 'Error al obtener evolución mensual',
                 detalle: error.message 
@@ -89,7 +89,7 @@ class EstadisticaController {
 
     static async getPorPrioridad(req, res) {
         try {
-            console.log('🎯 Iniciando getPorPrioridad...');
+            console.log(' Iniciando getPorPrioridad...');
             
             if (!Estadistica) {
                 throw new Error('Modelo Estadistica no disponible');
@@ -98,11 +98,11 @@ class EstadisticaController {
             const datos = await Estadistica.getPorPrioridad();
             const datosSeguros = Array.isArray(datos) ? datos : [];
             
-            console.log('✅ Datos por prioridad obtenidos:', datosSeguros.length);
+            console.log(' Datos por prioridad obtenidos:', datosSeguros.length);
             res.json(datosSeguros);
             
         } catch (error) {
-            console.error('❌ Error en getPorPrioridad:', error);
+            console.error(' Error en getPorPrioridad:', error);
             res.status(500).json({ 
                 error: 'Error al obtener datos por prioridad',
                 detalle: error.message 
@@ -112,7 +112,7 @@ class EstadisticaController {
 
     static async getDatosFiltros(req, res) {
         try {
-            console.log('🔧 Iniciando getDatosFiltros...');
+            console.log(' Iniciando getDatosFiltros...');
             
             const filtros = {
                 tipos_denuncia: [
@@ -140,11 +140,11 @@ class EstadisticaController {
                 ]
             };
             
-            console.log('✅ Datos de filtros enviados');
+            console.log(' Datos de filtros enviados');
             res.json(filtros);
             
         } catch (error) {
-            console.error('❌ Error en getDatosFiltros:', error);
+            console.error(' Error en getDatosFiltros:', error);
             res.status(500).json({ 
                 error: 'Error al obtener datos de filtros',
                 detalle: error.message 
@@ -167,7 +167,7 @@ class EstadisticaController {
     }
 }
 
-console.log('✅ Controlador EstadisticaController cargado correctamente');
+console.log(' Controlador EstadisticaController cargado correctamente');
 console.log('Métodos disponibles:');
 console.log('- getEstadisticasGenerales:', typeof EstadisticaController.getEstadisticasGenerales);
 console.log('- getPorTipo:', typeof EstadisticaController.getPorTipo);

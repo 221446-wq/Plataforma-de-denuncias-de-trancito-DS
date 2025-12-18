@@ -15,10 +15,10 @@ class Estadistica {
         try {
             console.log('📊 Ejecutando query de estadísticas generales...');
             const [rows] = await pool.execute(query);
-            console.log('✅ Query ejecutada correctamente');
+            console.log(' Query ejecutada correctamente');
             return rows[0];
         } catch (error) {
-            console.error('❌ Error en getEstadisticasGenerales:', error);
+            console.error(' Error en getEstadisticasGenerales:', error);
             throw error;
         }
     }
