@@ -111,29 +111,30 @@ async function registrarDenuncia() {
             throw new Error('Token inválido. Por favor, inicie sesión nuevamente.');
         }
 
-        const formData = {
-            tipo_denuncia: document.getElementById('tipo-denuncia').value,
-            descripcion: document.getElementById('descripcion').value.trim(),
-            latitud: parseFloat(document.getElementById('latitud').value),
-            longitud: parseFloat(document.getElementById('longitud').value),
-            direccion: document.getElementById('direccion').value,
-            archivos_fotos: [],
-            archivos_videos: [],
-            archivos_documentos: [],
-            prioridad: 'media'
-        };
+        const formData = new FormData();
+        formData.append('tipo_denuncia', document.getElementById('tipo-denuncia').value);
+        formData.append('descripcion', document.getElementById('descripcion').value.trim());
+        formData.append('latitud', parseFloat(document.getElementById('latitud').value));
+        formData.append('longitud', parseFloat(document.getElementById('longitud').value));
+        formData.append('direccion', document.getElementById('direccion').value);
+        formData.append('prioridad', 'media');
+
+        // Adjuntar archivos de fotos
+        const fotosInput = document.getElementById('fotos');
+        for (let i = 0; i < fotosInput.files.length; i++) {
+            formData.append('fotos', fotosInput.files[i]);
+        }
+
+        console.log('📤 Enviando denuncia con FormData...');
         
-        console.log('📤 Enviando denuncia:', formData);
-        console.log('🔐 Token usado:', token.substring(0, 20) + '...');
-        
-        // Usar fetch directamente para mejor control
+        // Usar fetch con FormData
         const response = await fetch('http://localhost:3000/api/denuncias', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                // No establecer 'Content-Type', el navegador lo hará por nosotros con el boundary correcto
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(formData)
+            body: formData
         });
         
         console.log('📥 Respuesta HTTP:', response.status, response.statusText);

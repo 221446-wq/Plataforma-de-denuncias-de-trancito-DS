@@ -5,11 +5,17 @@ class DenunciaController {
         try {
             console.log('Datos recibidos para denuncia:', req.body);
             console.log('Usuario autenticado:', req.user);
+            console.log('Archivos recibidos:', req.files); // Log para ver los archivos
 
             const denunciaData = {
                 ...req.body,
-                usuario_id: req.user.id
+                usuario_id: req.user.id,
+                // Mapear los archivos subidos a sus rutas
+                archivos_fotos: req.files ? req.files.map(file => `/uploads/${file.filename}`) : []
             };
+
+            console.log('Datos a guardar en la BD:', denunciaData); // Log para ver los datos finales
+
 
             const result = await Denuncia.create(denunciaData);
             
