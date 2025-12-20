@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 
 // Importar controlador y middlewares
 const authController = require('../Controllers/authController');
@@ -39,7 +40,7 @@ router.get('/verify', adminMiddleware, (req, res) => {
 
 // Ruta protegida para servir la página de registro de funcionario
 router.get('/admin/register-official-page', adminMiddleware, (req, res) => {
-    res.sendFile('registro_funcionario.html', { root: 'Backend/views/admin' });
+    res.sendFile(path.join(__dirname, '..', 'views', 'admin', 'registro_funcionario.html'));
 });
 
 module.exports = router;
