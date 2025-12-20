@@ -235,17 +235,23 @@ class Denuncia {
             
             const denuncia = rows[0];
             
-            // Parsear archivos
-            try {
-                denuncia.archivos_fotos = JSON.parse(denuncia.archivos_fotos || '[]');
-                denuncia.archivos_videos = JSON.parse(denuncia.archivos_videos || '[]');
-                denuncia.archivos_documentos = JSON.parse(denuncia.archivos_documentos || '[]');
-            } catch (parseError) {
-                console.warn('⚠️ Error parseando archivos JSON:', parseError);
-                denuncia.archivos_fotos = [];
-                denuncia.archivos_videos = [];
-                denuncia.archivos_documentos = [];
-            }
+            // Parsear archivos de forma segura
+            ['archivos_fotos', 'archivos_videos', 'archivos_documentos'].forEach(key => {
+                const value = denuncia[key];
+                if (typeof value === 'string' && value.startsWith('[')) {
+                    try {
+                        denuncia[key] = JSON.parse(value);
+                    } catch (e) {
+                        denuncia[key] = [];
+                    }
+                } else if (typeof value === 'string' && value.trim() !== '') {
+                    // Si es un string que no es un array JSON (dato antiguo), lo envuelve en un array
+                    denuncia[key] = [value];
+                } else if (!Array.isArray(value)) {
+                    // Si no es un array o un string procesable, se asegura de que sea un array vacío
+                    denuncia[key] = [];
+                }
+            });
             
             console.log('✅ Denuncia encontrada por ID:', denuncia.codigo_denuncia);
             return denuncia;
@@ -279,17 +285,23 @@ class Denuncia {
             
             const denuncia = rows[0];
             
-            // Parsear archivos
-            try {
-                denuncia.archivos_fotos = JSON.parse(denuncia.archivos_fotos || '[]');
-                denuncia.archivos_videos = JSON.parse(denuncia.archivos_videos || '[]');
-                denuncia.archivos_documentos = JSON.parse(denuncia.archivos_documentos || '[]');
-            } catch (parseError) {
-                console.warn('⚠️ Error parseando archivos JSON:', parseError);
-                denuncia.archivos_fotos = [];
-                denuncia.archivos_videos = [];
-                denuncia.archivos_documentos = [];
-            }
+            // Parsear archivos de forma segura
+            ['archivos_fotos', 'archivos_videos', 'archivos_documentos'].forEach(key => {
+                const value = denuncia[key];
+                if (typeof value === 'string' && value.startsWith('[')) {
+                    try {
+                        denuncia[key] = JSON.parse(value);
+                    } catch (e) {
+                        denuncia[key] = [];
+                    }
+                } else if (typeof value === 'string' && value.trim() !== '') {
+                    // Si es un string que no es un array JSON (dato antiguo), lo envuelve en un array
+                    denuncia[key] = [value];
+                } else if (!Array.isArray(value)) {
+                    // Si no es un array o un string procesable, se asegura de que sea un array vacío
+                    denuncia[key] = [];
+                }
+            });
             
             console.log('✅ Denuncia encontrada por código:', denuncia.codigo_denuncia);
             return denuncia;
