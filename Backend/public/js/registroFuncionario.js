@@ -297,7 +297,7 @@ async function registrarFuncionario() {
         } else if (error.message.includes('403')) {
             mensajeError = 'No tiene permisos de administrador para registrar funcionarios.';
         } else if (error.message.includes('Network Error') || error.message.includes('Failed to fetch')) {
-            mensajeError = 'Error de conexión: Verifica que el servidor esté funcionando en http://localhost:3000';
+            mensajeError = 'Error de conexión: No se pudo comunicar con el servidor. Verifique su conexión a internet y que el servicio esté disponible.';
         } else if (error.message.includes('400')) {
             mensajeError = 'Error en los datos: ' + error.message;
         }
