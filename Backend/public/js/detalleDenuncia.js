@@ -442,6 +442,9 @@ async function cargarDetalleDenuncia(codigoDenuncia) {
         const denuncia = await apiRequest(`${API_CONFIG.ENDPOINTS.DENUNCIAS.GET_BY_CODE}/${codigoCodificado}`);
         console.log('✅ Denuncia cargada:', denuncia);
         
+        // --- ALERTA DE DEPURACIÓN ---
+        alert('Datos de fotos recibidos: ' + JSON.stringify(denuncia.archivos_fotos));
+
         actualizarInterfaz(denuncia);
         ocultarCargando();
         
