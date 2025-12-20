@@ -457,6 +457,8 @@ async function cargarDetalleDenuncia(codigoDenuncia) {
 // ========== INICIALIZACIÓN ==========
 
 document.addEventListener('DOMContentLoaded', function() {
+    alert('Cargando script V2...'); // <-- NUEVA ALERTA DE PRUEBA
+    
     console.log('🚀 detalleDenuncia.js cargado');
     
     // Verificar autenticación primero
