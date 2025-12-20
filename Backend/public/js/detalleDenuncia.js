@@ -76,8 +76,8 @@ function crearHTMLArchivos(denuncia) {
     if (archivosFotos.length > 0) {
         html += '<div class="evidence-gallery">';
         html += archivosFotos.map(foto => `
-            <a href="/uploads/${foto}" target="_blank" rel="noopener noreferrer" title="Ver imagen completa">
-                <img src="/uploads/${foto}" alt="Evidencia fotográfica" class="denuncia-imagen-thumb">
+            <a href="${foto}" target="_blank" rel="noopener noreferrer" title="Ver imagen completa">
+                <img src="${foto}" alt="Evidencia fotográfica" class="denuncia-imagen-thumb">
             </a>
         `).join('');
         html += '</div>';
