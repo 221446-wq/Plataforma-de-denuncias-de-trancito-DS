@@ -341,15 +341,11 @@ function mostrarBotonRegistroFuncionario() {
             adminActionsDiv.innerHTML = registerButtonHTML;
             console.log('✅ Botón "Registrar Funcionario" mostrado para el administrador.');
 
-            // Añadir event listener para la redirección segura
+            // Añadir event listener para la redirección
             document.getElementById('btn-register-official').addEventListener('click', function(e) {
                 e.preventDefault();
-                const token = localStorage.getItem('token');
-                if (token) {
-                    window.location.href = `/api/auth/admin/register-official-page?token=${token}`;
-                } else {
-                    alert('Error: No se encontró el token de autenticación. Por favor, inicie sesión de nuevo.');
-                }
+                // Redirigir al formulario de registro de cuenta en modo 'funcionario'
+                window.location.href = 'registrar_cuenta.html?mode=funcionario';
             });
 
         } else if (adminActionsDiv) {
