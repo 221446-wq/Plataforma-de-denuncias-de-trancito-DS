@@ -72,47 +72,29 @@ function crearHTMLArchivos(denuncia) {
 
     let html = '';
 
-    // Fotos
+    // Fotos - Renderizadas como imágenes
     if (archivosFotos.length > 0) {
-        html += archivosFotos.map((foto, index) => `
-            <div class="archivo-item">
-                <div class="archivo-icon">🖼️</div>
-                <div class="archivo-info">
-                    <span class="archivo-nombre">${foto.nombre || `foto_${index + 1}.jpg`}</span>
-                    <span class="archivo-tipo">Foto</span>
-                </div>
-                <button class="archivo-btn" onclick="verArchivo('${foto.url || '#'}')">Ver</button>
-                <button class="archivo-btn secondary" onclick="descargarArchivo('${foto.url || '#'}', '${foto.nombre || `foto_${index + 1}.jpg`}')">Descargar</button>
-            </div>
+        html += '<div class="evidence-gallery">';
+        html += archivosFotos.map(foto => `
+            <a href="/uploads/${foto}" target="_blank" rel="noopener noreferrer" title="Ver imagen completa">
+                <img src="/uploads/${foto}" alt="Evidencia fotográfica" class="denuncia-imagen-thumb">
+            </a>
         `).join('');
+        html += '</div>';
     }
 
-    // Videos
-    if (archivosVideos.length > 0) {
-        html += archivosVideos.map((video, index) => `
+    // Videos y Documentos - Renderizados como lista
+    const otrosArchivos = [...archivosVideos, ...archivosDocumentos];
+    if (otrosArchivos.length > 0) {
+        html += otrosArchivos.map((archivo, index) => `
             <div class="archivo-item">
-                <div class="archivo-icon">🎥</div>
+                <div class="archivo-icon">${archivo.url.includes('.mp4') ? '🎥' : '📄'}</div>
                 <div class="archivo-info">
-                    <span class="archivo-nombre">${video.nombre || `video_${index + 1}.mp4`}</span>
-                    <span class="archivo-tipo">Video</span>
+                    <span class="archivo-nombre">${archivo.nombre || `archivo_${index + 1}`}</span>
+                    <span class="archivo-tipo">${archivo.url.includes('.mp4') ? 'Video' : 'Documento'}</span>
                 </div>
-                <button class="archivo-btn" onclick="verArchivo('${video.url || '#'}')">Ver</button>
-                <button class="archivo-btn secondary" onclick="descargarArchivo('${video.url || '#'}', '${video.nombre || `video_${index + 1}.mp4`}')">Descargar</button>
-            </div>
-        `).join('');
-    }
-
-    // Documentos
-    if (archivosDocumentos.length > 0) {
-        html += archivosDocumentos.map((doc, index) => `
-            <div class="archivo-item">
-                <div class="archivo-icon">📄</div>
-                <div class="archivo-info">
-                    <span class="archivo-nombre">${doc.nombre || `documento_${index + 1}.pdf`}</span>
-                    <span class="archivo-tipo">Documento</span>
-                </div>
-                <button class="archivo-btn" onclick="verArchivo('${doc.url || '#'}')">Ver</button>
-                <button class="archivo-btn secondary" onclick="descargarArchivo('${doc.url || '#'}', '${doc.nombre || `documento_${index + 1}.pdf`}')">Descargar</button>
+                <a href="/uploads/${archivo.url}" target="_blank" rel="noopener noreferrer" class="archivo-btn">Ver</a>
+                <a href="/uploads/${archivo.url}" download="${archivo.nombre || `archivo_${index + 1}`}" class="archivo-btn secondary">Descargar</a>
             </div>
         `).join('');
     }
@@ -149,6 +131,29 @@ function crearHTMLHistorial(historial) {
 // ========== FUNCIÓN PRINCIPAL PARA CREAR HTML ==========
 
 function crearHTMLDenuncia(denuncia) {
+    
+    // Generar el mapa o el placeholder
+    let mapaHTML = '';
+    if (denuncia.latitud && denuncia.longitud) {
+        mapaHTML = `
+            <div class="map-container">
+                <iframe
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    style="border:0"
+                    src="https://maps.google.com/maps?q=${denuncia.latitud},${denuncia.longitud}&hl=es&z=15&output=embed"
+                    allowfullscreen>
+                </iframe>
+            </div>`;
+    } else {
+        mapaHTML = `
+            <div class="map-placeholder">
+                <p>🗺️ Mapa de ubicación</p>
+                <small>Coordenadas no disponibles para esta denuncia.</small>
+            </div>`;
+    }
+
     return `
         <!-- Información principal -->
         <div class="info-grid">
@@ -209,18 +214,7 @@ function crearHTMLDenuncia(denuncia) {
                         <label>Dirección:</label>
                         <span class="info-value">${denuncia.direccion || 'No especificada'}</span>
                     </div>
-                    <div class="info-item">
-                        <label>Coordenadas:</label>
-                        <span class="info-value">
-                            ${denuncia.latitud && denuncia.longitud ? 
-                                `${denuncia.latitud}, ${denuncia.longitud}` : 
-                                'No disponibles'}
-                        </span>
-                    </div>
-                    <div class="map-placeholder">
-                        <p>🗺️ Mapa de ubicación</p>
-                        <small>Coordenadas: ${denuncia.latitud || 'N/A'}, ${denuncia.longitud || 'N/A'}</small>
-                    </div>
+                    ${mapaHTML}
                 </div>
 
                 <!-- Gestión de la denuncia -->
