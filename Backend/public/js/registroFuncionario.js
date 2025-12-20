@@ -258,50 +258,11 @@ async function registrarFuncionario() {
             console.error('❌ Error decodificando token:', decodeError);
             throw new Error('Token corrupto o inválido.');
         }
-
-        console.log('🌐 Haciendo petición a:', 'http://localhost:3000/api/auth/register-funcionario');
-        console.log('📤 Headers enviados:', {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token.substring(0, 20)}...` // Mostrar solo parte del token por seguridad
-        });
         
-        // Hacer la petición con timeout
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 segundos timeout
-        
-        const response = await fetch('http://localhost:3000/api/auth/register-funcionario', {
+        const responseData = await apiRequest(API_CONFIG.ENDPOINTS.AUTH.REGISTER_FUNCIONARIO, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(formData),
-            signal: controller.signal
+            body: JSON.stringify(formData)
         });
-        
-        clearTimeout(timeoutId);
-        
-        console.log('📥 Respuesta HTTP recibida:', response.status, response.statusText);
-        
-        // Verificar si la respuesta es JSON
-        const contentType = response.headers.get('content-type');
-        console.log('📄 Content-Type de respuesta:', contentType);
-        
-        let responseData;
-        if (contentType && contentType.includes('application/json')) {
-            responseData = await response.json();
-        } else {
-            const textResponse = await response.text();
-            console.log('📝 Respuesta no JSON:', textResponse);
-            throw new Error(`Respuesta inesperada del servidor: ${textResponse}`);
-        }
-        
-        console.log('📊 Datos de respuesta:', responseData);
-        
-        if (!response.ok) {
-            console.error('❌ Error en respuesta:', responseData);
-            throw new Error(responseData.error || `Error HTTP: ${response.status}`);
-        }
         
         console.log('✅ Funcionario registrado exitosamente');
         mostrarMensaje(`¡Funcionario registrado exitosamente!<br>Usuario: ${formData.usuario}<br>Cargo: ${formData.cargo}`, 'success');

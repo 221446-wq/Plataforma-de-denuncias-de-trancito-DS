@@ -37,4 +37,9 @@ router.get('/verify', adminMiddleware, (req, res) => {
     });
 });
 
+// Ruta protegida para servir la página de registro de funcionario
+router.get('/admin/register-official-page', adminMiddleware, (req, res) => {
+    res.sendFile('registro_funcionario.html', { root: 'Backend/views/admin' });
+});
+
 module.exports = router;

@@ -275,7 +275,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Cargar nombre del usuario
     cargarNombreUsuario();
-    
+    // Mostrar botón de registro de funcionario si es administrador
+    mostrarBotonRegistroFuncionario();
+
     // Verificar que los elementos del DOM existan
     const filtroBtn = document.querySelector('.filtro-btn');
     const limpiarBtn = document.querySelector('.filtro-btn.secondary');
@@ -319,5 +321,30 @@ function cargarNombreUsuario() {
         }
     } catch (error) {
         console.error('❌ Error al cargar nombre del usuario:', error);
+    }
+}
+
+function mostrarBotonRegistroFuncionario() {
+    try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const adminActionsDiv = document.getElementById('admin-actions');
+
+        if (user.tipo_usuario === 'administrador' && adminActionsDiv) {
+            const registerButtonHTML = `
+                <div class="stat-card highlight">
+                    <a href="/api/auth/admin/register-official-page" class="stat-link">
+                        <div class="stat-number">➕</div>
+                        <div class="stat-label">Registrar Funcionario</div>
+                    </a>
+                </div>
+            `;
+            adminActionsDiv.innerHTML = registerButtonHTML;
+            console.log('✅ Botón "Registrar Funcionario" mostrado para el administrador.');
+        } else if (adminActionsDiv) {
+            adminActionsDiv.style.display = 'none'; // Ocultar si no es admin
+            console.log('❌ Botón "Registrar Funcionario" oculto (no es administrador).');
+        }
+    } catch (error) {
+        console.error('❌ Error al mostrar/ocultar botón de registro de funcionario:', error);
     }
 }
