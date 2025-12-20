@@ -332,7 +332,7 @@ function mostrarBotonRegistroFuncionario() {
         if (user.tipo_usuario === 'administrador' && adminActionsDiv) {
             const registerButtonHTML = `
                 <div class="stat-card highlight">
-                    <a href="/api/auth/admin/register-official-page" class="stat-link">
+                    <a href="javascript:void(0);" id="btn-register-official" class="stat-link">
                         <div class="stat-number">➕</div>
                         <div class="stat-label">Registrar Funcionario</div>
                     </a>
@@ -340,6 +340,18 @@ function mostrarBotonRegistroFuncionario() {
             `;
             adminActionsDiv.innerHTML = registerButtonHTML;
             console.log('✅ Botón "Registrar Funcionario" mostrado para el administrador.');
+
+            // Añadir event listener para la redirección segura
+            document.getElementById('btn-register-official').addEventListener('click', function(e) {
+                e.preventDefault();
+                const token = localStorage.getItem('token');
+                if (token) {
+                    window.location.href = `/api/auth/admin/register-official-page?token=${token}`;
+                } else {
+                    alert('Error: No se encontró el token de autenticación. Por favor, inicie sesión de nuevo.');
+                }
+            });
+
         } else if (adminActionsDiv) {
             adminActionsDiv.style.display = 'none'; // Ocultar si no es admin
             console.log('❌ Botón "Registrar Funcionario" oculto (no es administrador).');
