@@ -344,6 +344,7 @@ function mostrarBotonRegistroFuncionario() {
             // Añadir event listener para la redirección segura
             document.getElementById('btn-register-official').addEventListener('click', function(e) {
                 e.preventDefault();
+                alert('Ejecutando el nuevo código de redirección...'); // <-- ALERTA DE PRUEBA
                 const token = localStorage.getItem('token');
                 if (token) {
                     window.location.href = `/api/auth/admin/register-official-page?token=${token}`;
