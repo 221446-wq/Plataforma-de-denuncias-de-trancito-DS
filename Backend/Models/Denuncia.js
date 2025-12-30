@@ -14,8 +14,9 @@ class Denuncia {
             latitud, longitud
         });
 
-        // Generar código único para la denuncia
-        const codigo_denuncia = 'DEN-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+        // Generamos un código más corto: "DEN-" + los últimos 6 números de la fecha + 4 letras al azar
+        // Ejemplo resultado: DEN-829123-A1B2 (15 caracteres aprox)
+        const codigo_denuncia = 'DEN-' + Date.now().toString().slice(-6) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
 
         const query = `
             INSERT INTO denuncias (

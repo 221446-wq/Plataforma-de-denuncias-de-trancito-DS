@@ -3,12 +3,31 @@ const Denuncia = require('../Models/Denuncia');
 class DenunciaController {
     static async crearDenuncia(req, res) {
         try {
-            console.log('Datos recibidos para denuncia:', req.body);
-            console.log('Usuario autenticado:', req.user);
+            console.log('Datos texto recibidos:', req.body);
+            // 1. VERIFICAR SI LLEGARON ARCHIVOS
+            console.log('Archivos recibidos:', req.files); 
 
+            // 2. EXTRAER LOS NOMBRES DE LOS ARCHIVOS (Si existen)
+            // Multer guarda los archivos en req.files['nombre_campo']
+            const archivos_fotos = req.files && req.files['fotos'] 
+                ? req.files['fotos'].map(file => file.filename) 
+                : [];
+                
+            const archivos_videos = req.files && req.files['videos'] 
+                ? req.files['videos'].map(file => file.filename) 
+                : [];
+                
+            const archivos_documentos = req.files && req.files['documentos'] 
+                ? req.files['documentos'].map(file => file.filename) 
+                : [];
+
+            // 3. ARMAR EL OBJETO PARA LA BASE DE DATOS
             const denunciaData = {
-                ...req.body,
-                usuario_id: req.user.id
+                ...req.body, // Trae tipo_denuncia, descripcion, latitud, etc.
+                usuario_id: req.user.id,
+                archivos_fotos,      // Guardamos el array de nombres
+                archivos_videos,
+                archivos_documentos
             };
 
             const result = await Denuncia.create(denunciaData);
