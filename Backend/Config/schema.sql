@@ -61,7 +61,8 @@ CREATE TABLE comentarios_denuncias (
 
 -- Insertar usuario administrador por defecto
 INSERT INTO usuarios (dni, nombres, apellidos, correo, celular, usuario, password, tipo_usuario, cargo) 
-VALUES ('12345678', 'Admin', 'Sistema', 'admin@municusco.gob.pe', '999888777', 'admin', '$2b$10$YourHashedPasswordHere', 'administrador', 'Administrador del Sistema');
+(1, '99999999', 'Nombre', 'Apellido', 'admin2@municusco.gob.pe', '999999999', 'tu_usuario', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'administrador', 'Administrador', '2025-11-07 00:15:05', 1),
+
 
 -- Crear índices para mejor performance
 CREATE INDEX idx_denuncias_estado ON denuncias(estado);
