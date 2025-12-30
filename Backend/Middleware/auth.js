@@ -43,8 +43,12 @@ const authMiddleware = async (req, res, next) => {
 // Middleware específico para administradores
 const adminMiddleware = async (req, res, next) => {
     try {
-        const token = req.header('Authorization')?.replace('Bearer ', '');
-        
+        let token = req.header('Authorization')?.replace('Bearer ', '');
+
+        if (!token) {
+            token = req.query.token;
+        }
+
         console.log('=== ADMIN MIDDLEWARE ===');
         console.log('Token recibido:', token ? 'Presente' : 'Ausente');
         

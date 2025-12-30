@@ -1,6 +1,6 @@
 // Configuración de la API
 const API_CONFIG = {
-    BASE_URL: 'http://localhost:3000/api',
+    BASE_URL: 'https://plataforma-de-denuncias-de-trancito-ds-csx1.onrender.com/api',
     ENDPOINTS: {
         AUTH: {
             LOGIN: '/auth/login',

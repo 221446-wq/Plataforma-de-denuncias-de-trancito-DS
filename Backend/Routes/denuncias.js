@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const DenunciaController = require('../Controllers/denunciaController');
 const { authMiddleware } = require('../Middleware/auth');
+
 const upload = require('../Config/multer'); // <--- 1. IMPORTANTE: Importamos Multer
 
 // Aplicar middleware de autenticación a TODAS las rutas

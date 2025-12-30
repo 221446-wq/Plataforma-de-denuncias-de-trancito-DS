@@ -1,4 +1,194 @@
+<<<<<<< HEAD
 // Variables globales para el mapa
+=======
+document.addEventListener('DOMContentLoaded', function() {
+    // Cargar nombre del usuario
+    cargarNombreUsuario();
+    
+    // Configurar el formulario de denuncia
+    const denunciaForm = document.querySelector('.denuncia-form');
+    
+    if (denunciaForm) {
+        denunciaForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (await validarFormularioDenuncia()) {
+                await registrarDenuncia();
+            }
+        });
+    }
+    
+    // Inicializar mapa
+    initMap();
+});
+
+function cargarNombreUsuario() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userNameElement = document.getElementById('user-name');
+    
+    if (userNameElement && user.nombres) {
+        userNameElement.textContent = user.nombres + ' ' + (user.apellidos || '');
+    }
+}
+
+async function validarFormularioDenuncia() {
+    const tipoDenuncia = document.getElementById('tipo-denuncia').value;
+    const descripcion = document.getElementById('descripcion').value;
+    const latitud = document.getElementById('latitud').value;
+    const longitud = document.getElementById('longitud').value;
+    const terminos = document.getElementById('terminos').checked;
+    
+    // Validar tipo de denuncia
+    if (!tipoDenuncia) {
+        alert('Por favor seleccione el tipo de denuncia');
+        document.getElementById('tipo-denuncia').focus();
+        return false;
+    }
+    
+    // Validar descripción
+    if (!descripcion.trim()) {
+        alert('Por favor ingrese una descripción detallada');
+        document.getElementById('descripcion').focus();
+        return false;
+    }
+    
+    if (descripcion.trim().length < 10) {
+        alert('La descripción debe tener al menos 10 caracteres');
+        document.getElementById('descripcion').focus();
+        return false;
+    }
+    
+    // Validar ubicación
+    if (!latitud || !longitud) {
+        alert('Por favor seleccione una ubicación en el mapa');
+        return false;
+    }
+    
+    // Validar términos y condiciones
+    if (!terminos) {
+        alert('Debe aceptar los términos y condiciones');
+        document.getElementById('terminos').focus();
+        return false;
+    }
+    
+    return true;
+}
+
+async function registrarDenuncia() {
+    const botonDenuncia = document.querySelector('.denuncia-btn');
+    const textoOriginal = botonDenuncia.textContent;
+    
+    try {
+        // Mostrar estado de carga
+        botonDenuncia.textContent = 'Registrando...';
+        botonDenuncia.disabled = true;
+        
+        // VERIFICAR TOKEN ANTES DE CONTINUAR
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        console.log('🔐 Verificando sesión...');
+        console.log('Token presente:', token ? 'Sí' : 'No');
+        console.log('Usuario:', user);
+        
+        if (!token) {
+            throw new Error('No hay token de autenticación. Por favor, inicie sesión nuevamente.');
+        }
+
+        // Verificar si el token ha expirado
+        try {
+            const tokenParts = token.split('.');
+            if (tokenParts.length === 3) {
+                const payload = JSON.parse(atob(tokenParts[1]));
+                const now = Date.now() / 1000;
+                
+                if (payload.exp && payload.exp < now) {
+                    console.log('❌ Token expirado');
+                    throw new Error('Token expirado');
+                }
+                
+                console.log('✅ Token válido. Usuario:', payload.usuario);
+            }
+        } catch (tokenError) {
+            console.error('Error verificando token:', tokenError);
+            throw new Error('Token inválido. Por favor, inicie sesión nuevamente.');
+        }
+
+        const formData = new FormData();
+        formData.append('tipo_denuncia', document.getElementById('tipo-denuncia').value);
+        formData.append('descripcion', document.getElementById('descripcion').value.trim());
+        formData.append('latitud', parseFloat(document.getElementById('latitud').value));
+        formData.append('longitud', parseFloat(document.getElementById('longitud').value));
+        formData.append('direccion', document.getElementById('direccion').value);
+        formData.append('prioridad', 'media');
+
+        // Adjuntar archivos de fotos
+        const fotosInput = document.getElementById('fotos');
+        for (let i = 0; i < fotosInput.files.length; i++) {
+            formData.append('fotos', fotosInput.files[i]);
+        }
+
+        console.log('📤 Enviando denuncia con FormData...');
+        
+        // Usar fetch con FormData
+        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.DENUNCIAS.CREATE}`, {
+            method: 'POST',
+            headers: {
+                // No establecer 'Content-Type', el navegador lo hará por nosotros con el boundary correcto
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+        
+        console.log('📥 Respuesta HTTP:', response.status, response.statusText);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error HTTP: ${response.status}`);
+        }
+        
+        const responseData = await response.json();
+        console.log('✅ Denuncia registrada:', responseData);
+        
+        alert(`¡Denuncia registrada exitosamente!\nCódigo de seguimiento: ${responseData.codigo_denuncia}\nGuarde este código para hacer seguimiento.`);
+        
+        // Limpiar formulario
+        document.querySelector('.denuncia-form').reset();
+        document.getElementById('latitud').value = '';
+        document.getElementById('longitud').value = '';
+        document.getElementById('direccion').value = '';
+        
+        // Restablecer mapa a posición inicial
+        if (marker && map) {
+            marker.setLatLng(defaultLocation);
+            map.setView(defaultLocation, 14);
+            updateCoordinates(defaultLocation);
+        }
+        
+    } catch (error) {
+        console.error('💥 Error completo al registrar denuncia:', error);
+        
+        if (error.message.includes('401') || error.message.includes('token') || error.message.includes('expirado') || error.message.includes('autenticación')) {
+            alert('Su sesión ha expirado. Por favor, inicie sesión nuevamente.');
+            // Limpiar datos de sesión expirados
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+        } else if (error.message.includes('Network Error') || error.message.includes('Failed to fetch')) {
+            alert('Error de conexión: Verifica que el servidor esté funcionando en http://localhost:3000');
+        } else {
+            alert('Error al registrar denuncia: ' + error.message);
+        }
+    } finally {
+        // Restaurar botón
+        botonDenuncia.textContent = textoOriginal;
+        botonDenuncia.disabled = false;
+    }
+}
+// Variables y funciones del mapa (mover aquí desde el HTML)
+>>>>>>> origin/rick
 let map;
 let marker;
 const defaultLocation = [-13.53195, -71.96746]; // Coordenadas de Cusco

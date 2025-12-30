@@ -7,6 +7,11 @@ class DenunciaController {
             // 1. VERIFICAR SI LLEGARON ARCHIVOS
             console.log('Archivos recibidos:', req.files); 
 
+            console.log('Datos recibidos para denuncia:', req.body);
+            console.log('Usuario autenticado:', req.user);
+            console.log('Archivos recibidos:', req.files); // Log para ver los archivos
+
+
             // 2. EXTRAER LOS NOMBRES DE LOS ARCHIVOS (Si existen)
             // Multer guarda los archivos en req.files['nombre_campo']
             const archivos_fotos = req.files && req.files['fotos'] 
@@ -23,12 +28,17 @@ class DenunciaController {
 
             // 3. ARMAR EL OBJETO PARA LA BASE DE DATOS
             const denunciaData = {
+
                 ...req.body, // Trae tipo_denuncia, descripcion, latitud, etc.
                 usuario_id: req.user.id,
                 archivos_fotos,      // Guardamos el array de nombres
                 archivos_videos,
                 archivos_documentos
+
             };
+
+            console.log('Datos a guardar en la BD:', denunciaData); // Log para ver los datos finales
+
 
             const result = await Denuncia.create(denunciaData);
             
@@ -112,7 +122,7 @@ class DenunciaController {
     static async obtenerDenunciaPorId(req, res) {
         try {
             const { id } = req.params;
-            console.log('🔍 Controlador: Buscando denuncia con ID:', id);
+            console.log(' Controlador: Buscando denuncia con ID:', id);
 
             // VERIFICACIÓN: ¿Es un ID numérico o un código?
             const esIdNumerico = /^\d+$/.test(id);
@@ -127,7 +137,7 @@ class DenunciaController {
             }
             
             if (!denuncia) {
-                console.log('❌ Controlador: Denuncia no encontrada:', id);
+                console.log(' Controlador: Denuncia no encontrada:', id);
                 return res.status(404).json({ error: 'Denuncia no encontrada' });
             }
 
@@ -135,11 +145,11 @@ class DenunciaController {
             const historial = await Denuncia.getHistorial(denuncia.id);
             denuncia.historial = historial;
 
-            console.log('✅ Controlador: Denuncia encontrada:', denuncia.codigo_denuncia);
+            console.log(' Controlador: Denuncia encontrada:', denuncia.codigo_denuncia);
             res.json(denuncia);
 
         } catch (error) {
-            console.error('❌ Controlador: Error al obtener denuncia:', error);
+            console.error(' Controlador: Error al obtener denuncia:', error);
             res.status(500).json({ error: 'Error al obtener denuncia: ' + error.message });
         }
     }

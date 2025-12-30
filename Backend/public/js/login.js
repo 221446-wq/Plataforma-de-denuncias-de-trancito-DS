@@ -38,7 +38,7 @@ function redirigirSegunTipoUsuario(tipoUsuario) {
             window.location.href = 'gestion_denuncias.html';
             break;
         case 'administrador':
-            window.location.href = 'registro_funcionario.html';
+            window.location.href = 'gestion_denuncias.html';
             break;
         default:
             window.location.href = 'index.html';

@@ -1,3 +1,5 @@
+
+drop database  if exists plataforma_denuncias ;
 -- Crear base de datos
 CREATE DATABASE IF NOT EXISTS plataforma_denuncias;
 USE plataforma_denuncias;
@@ -62,10 +64,11 @@ CREATE TABLE comentarios_denuncias (
 -- Insertar usuario administrador por defecto
 INSERT INTO usuarios (dni, nombres, apellidos, correo, celular, usuario, password, tipo_usuario, cargo) 
 (1, '99999999', 'Nombre', 'Apellido', 'admin2@municusco.gob.pe', '999999999', 'tu_usuario', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'administrador', 'Administrador', '2025-11-07 00:15:05', 1),
-
+(2, '12345678', 'Admin', 'Sistema', 'admin@municipalidadcusco.gob.pe', '999888777', 'admin', '$2b$12$dmOSy5v6g5qR8cZ6GTY0wu4JLzHMTVBf7z//Xs8MGwUos1C/HIjn2', 'administrador', 'Administrador del Sistema');
 
 -- Crear índices para mejor performance
 CREATE INDEX idx_denuncias_estado ON denuncias(estado);
 CREATE INDEX idx_denuncias_fecha ON denuncias(fecha_creacion);
 CREATE INDEX idx_denuncias_usuario ON denuncias(usuario_id);
 CREATE INDEX idx_usuarios_tipo ON usuarios(tipo_usuario);
+

@@ -8,15 +8,19 @@ class Denuncia {
             archivos_fotos, archivos_videos, archivos_documentos, prioridad
         } = denunciaData;
 
-        console.log('📝 Creando denuncia con datos:', {
+        console.log(' Creando denuncia con datos:', {
             usuario_id, tipo_denuncia, 
             descripcion: descripcion ? descripcion.substring(0, 50) + '...' : 'null',
             latitud, longitud
         });
 
-        // Generamos un código más corto: "DEN-" + los últimos 6 números de la fecha + 4 letras al azar
-        // Ejemplo resultado: DEN-829123-A1B2 (15 caracteres aprox)
-        const codigo_denuncia = 'DEN-' + Date.now().toString().slice(-6) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+
+        // Generar código único para la denuncia
+        const timestampPart = Date.now().toString().slice(-9); // Últimos 9 dígitos del timestamp
+        const randomPart = Math.random().toString(36).substr(2, 5).toUpperCase(); // 5 caracteres alfanuméricos
+        const codigo_denuncia = `DEN-${timestampPart}-${randomPart}`; // Formato: DEN-XXXXXXXXX-ABCDE (19 caracteres)
+
+        
 
         const query = `
             INSERT INTO denuncias (
@@ -40,19 +44,19 @@ class Denuncia {
             codigo_denuncia
         ];
 
-        console.log('🔍 Query:', query);
-        console.log('📊 Valores:', values);
+        console.log(' Query:', query);
+        console.log(' Valores:', values);
 
         try {
             const [result] = await pool.execute(query, values);
-            console.log('✅ Denuncia creada con ID:', result.insertId, 'Código:', codigo_denuncia);
+            console.log(' Denuncia creada con ID:', result.insertId, 'Código:', codigo_denuncia);
             
             return { 
                 id: result.insertId, 
                 codigo_denuncia: codigo_denuncia 
             };
         } catch (error) {
-            console.error('❌ Error en Denuncia.create:');
+            console.error(' Error en Denuncia.create:');
             console.error('Mensaje:', error.message);
             console.error('Código:', error.code);
             console.error('SQL Message:', error.sqlMessage);
@@ -179,8 +183,8 @@ class Denuncia {
 
             query += ' ORDER BY d.fecha_creacion DESC';
 
-            console.log('🔍 Query con filtros:', query);
-            console.log('📊 Parámetros:', params);
+            console.log(' Query con filtros:', query);
+            console.log(' Parámetros:', params);
 
             const [rows] = await pool.execute(query, params);
             return rows;
@@ -226,29 +230,35 @@ class Denuncia {
             const [rows] = await pool.execute(query, [id]);
             
             if (rows.length === 0) {
-                console.log('❌ No se encontró denuncia con ID:', id);
+                console.log(' No se encontró denuncia con ID:', id);
                 return null;
             }
             
             const denuncia = rows[0];
             
-            // Parsear archivos
-            try {
-                denuncia.archivos_fotos = JSON.parse(denuncia.archivos_fotos || '[]');
-                denuncia.archivos_videos = JSON.parse(denuncia.archivos_videos || '[]');
-                denuncia.archivos_documentos = JSON.parse(denuncia.archivos_documentos || '[]');
-            } catch (parseError) {
-                console.warn('⚠️ Error parseando archivos JSON:', parseError);
-                denuncia.archivos_fotos = [];
-                denuncia.archivos_videos = [];
-                denuncia.archivos_documentos = [];
-            }
+            // Parsear archivos de forma segura
+            ['archivos_fotos', 'archivos_videos', 'archivos_documentos'].forEach(key => {
+                const value = denuncia[key];
+                if (typeof value === 'string' && value.startsWith('[')) {
+                    try {
+                        denuncia[key] = JSON.parse(value);
+                    } catch (e) {
+                        denuncia[key] = [];
+                    }
+                } else if (typeof value === 'string' && value.trim() !== '') {
+                    // Si es un string que no es un array JSON (dato antiguo), lo envuelve en un array
+                    denuncia[key] = [value];
+                } else if (!Array.isArray(value)) {
+                    // Si no es un array o un string procesable, se asegura de que sea un array vacío
+                    denuncia[key] = [];
+                }
+            });
             
-            console.log('✅ Denuncia encontrada por ID:', denuncia.codigo_denuncia);
+            console.log(' Denuncia encontrada por ID:', denuncia.codigo_denuncia);
             return denuncia;
             
         } catch (error) {
-            console.error('❌ Error en findById:', error);
+            console.error(' Error en findById:', error);
             throw error;
         }
     }
@@ -256,7 +266,7 @@ class Denuncia {
     // Obtener denuncia por código
     static async findByCodigo(codigo) {
         try {
-            console.log('🔍 Buscando denuncia con código:', codigo);
+            console.log(' Buscando denuncia con código:', codigo);
             
             const query = `
                 SELECT d.*, 
@@ -270,29 +280,35 @@ class Denuncia {
             const [rows] = await pool.execute(query, [codigo]);
             
             if (rows.length === 0) {
-                console.log('❌ No se encontró denuncia con código:', codigo);
+                console.log(' No se encontró denuncia con código:', codigo);
                 return null;
             }
             
             const denuncia = rows[0];
             
-            // Parsear archivos
-            try {
-                denuncia.archivos_fotos = JSON.parse(denuncia.archivos_fotos || '[]');
-                denuncia.archivos_videos = JSON.parse(denuncia.archivos_videos || '[]');
-                denuncia.archivos_documentos = JSON.parse(denuncia.archivos_documentos || '[]');
-            } catch (parseError) {
-                console.warn('⚠️ Error parseando archivos JSON:', parseError);
-                denuncia.archivos_fotos = [];
-                denuncia.archivos_videos = [];
-                denuncia.archivos_documentos = [];
-            }
+            // Parsear archivos de forma segura
+            ['archivos_fotos', 'archivos_videos', 'archivos_documentos'].forEach(key => {
+                const value = denuncia[key];
+                if (typeof value === 'string' && value.startsWith('[')) {
+                    try {
+                        denuncia[key] = JSON.parse(value);
+                    } catch (e) {
+                        denuncia[key] = [];
+                    }
+                } else if (typeof value === 'string' && value.trim() !== '') {
+                    // Si es un string que no es un array JSON (dato antiguo), lo envuelve en un array
+                    denuncia[key] = [value];
+                } else if (!Array.isArray(value)) {
+                    // Si no es un array o un string procesable, se asegura de que sea un array vacío
+                    denuncia[key] = [];
+                }
+            });
             
-            console.log('✅ Denuncia encontrada por código:', denuncia.codigo_denuncia);
+            console.log(' Denuncia encontrada por código:', denuncia.codigo_denuncia);
             return denuncia;
             
         } catch (error) {
-            console.error('❌ Error en findByCodigo:', error);
+            console.error(' Error en findByCodigo:', error);
             throw error;
         }
     }
