@@ -109,5 +109,43 @@
   <script src="../js/config.js"></script>
   <script src="../js/registroCiudadano.js"></script>
 
+  <script>
+    document.getElementById('dni').addEventListener('blur', async function() {
+        const dni = this.value.trim();
+        
+        if (dni.length !== 8 || isNaN(dni)) return;
+
+        const nombresInput = document.getElementById('nombres');
+        const apellidosInput = document.getElementById('apellidos');
+
+        nombresInput.value = 'Buscando...';
+        apellidosInput.value = 'Buscando...';
+        nombresInput.disabled = true;
+        apellidosInput.disabled = true;
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/dni/${dni}`);
+            const data = await response.json();
+
+            if (response.ok) {
+                nombresInput.value = data.nombres || '';
+                apellidosInput.value = `${data.apellido_paterno || ''} ${data.apellido_materno || ''}`.trim();
+            } else {
+                alert(data.error || 'DNI no encontrado');
+                nombresInput.value = '';
+                apellidosInput.value = '';
+            }
+        } catch (err) {
+            alert('Error de conexión al consultar DNI');
+            nombresInput.value = '';
+            apellidosInput.value = '';
+        } finally {
+            nombresInput.disabled = false;
+            apellidosInput.disabled = false;
+        }
+    });
+  </script>
+
 </body>
+
 </html>
