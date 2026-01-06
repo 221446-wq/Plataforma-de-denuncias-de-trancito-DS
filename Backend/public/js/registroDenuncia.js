@@ -27,7 +27,7 @@ function cargarNombreUsuario() {
     if (userNameElement && user.nombres) {
         userNameElement.textContent = user.nombres + ' ' + (user.apellidos || '');
     } else if (panelWelcome) {
-        panelWelcome.innerHTML = 'Estás realizando una <strong>denuncia anónima</strong>. Tus datos no serán compartidos.';
+        panelWelcome.innerHTML = 'Bienvenido <strong>Ciudadano</strong>.';
     }
 }
 

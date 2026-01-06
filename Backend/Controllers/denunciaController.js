@@ -1,5 +1,7 @@
 const Denuncia = require('../Models/Denuncia');
 const cloudinary = require('cloudinary').v2;
+const User = require('../Models/User');
+const bcrypt = require('bcryptjs');
 
 // !! IMPORTANTE !!
 // Configura Cloudinary con tus credenciales. 
@@ -47,10 +49,37 @@ class DenunciaController {
                 archivosUrls = uploadResults.map(result => result.secure_url);
             }
 
+            let usuario_id = null;
+            if (req.user) {
+                usuario_id = req.user.id;
+            } else {
+                // Handle anonymous user
+                let anonymousUser = await User.findByEmailOrUsername('anonymous');
+                if (!anonymousUser) {
+                    // Create anonymous user
+                    const randomPassword = Math.random().toString(36).slice(-8);
+                    const hashedPassword = await bcrypt.hash(randomPassword, 12);
+                    const anonymousUserData = {
+                        dni: '00000000',
+                        nombres: 'Usuario',
+                        apellidos: 'Anónimo',
+                        correo: 'anonymous@anonymous.com',
+                        celular: '999999999',
+                        usuario: 'anonymous',
+                        password: hashedPassword,
+                        tipo_usuario: 'ciudadano',
+                        cargo: 'N/A'
+                    };
+                    const userId = await User.create(anonymousUserData);
+                    anonymousUser = { id: userId };
+                }
+                usuario_id = anonymousUser.id;
+            }
+
             const denunciaData = {
                 ...req.body,
                 // Asignar el ID de usuario si está autenticado, o null si es anónimo
-                usuario_id: req.user ? req.user.id : null,
+                usuario_id: usuario_id,
                 // Guardar las URLs de Cloudinary en la base de datos
                 archivos_fotos: archivosUrls
             };

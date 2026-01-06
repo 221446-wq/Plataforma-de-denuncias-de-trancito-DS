@@ -87,6 +87,10 @@ class Denuncia {
         }
     }
 
+    static async findAll() {
+        return this.findAllWithFilters({});
+    }
+
     static async getComentarios(denuncia_id) {
         try {
             const [rows] = await pool.execute('CALL sp_get_comentarios_denuncia(?)', [denuncia_id]);
