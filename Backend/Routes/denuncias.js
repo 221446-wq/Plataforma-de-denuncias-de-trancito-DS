@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const DenunciaController = require('../Controllers/denunciaController');
-const express = require('express');
-const router = express.Router();
-const DenunciaController = require('../Controllers/denunciaController');
 // Importar ambos middlewares
 const { authMiddleware, authOptional } = require('../Middleware/auth'); 
 const upload = require('../Middleware/upload'); // Importar Multer
