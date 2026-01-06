@@ -20,14 +20,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function cargarNombreUsuario() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isAnonymousPage = urlParams.get('anonymous') === 'true';
+
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const panelWelcome = document.querySelector('.panel-welcome');
     const userNameElement = document.getElementById('user-name');
     
-    if (userNameElement && user.nombres) {
+    if (isAnonymousPage && panelWelcome) {
+        panelWelcome.innerHTML = 'Bienvenido <strong>Ciudadano</strong>.';
+    } else if (userNameElement && user.nombres) {
         userNameElement.textContent = user.nombres + ' ' + (user.apellidos || '');
     } else if (panelWelcome) {
-        panelWelcome.innerHTML = 'Bienvenido <strong>Ciudadano</strong>.';
+        // Fallback for non-anonymous page without logged in user.
+        // This case should ideally not happen if logic is correct,
+        // or indicates user is on a protected page without login.
+        // For now, let's keep the existing anonymous message for non-anonymous page.
+        panelWelcome.innerHTML = 'Estás realizando una <strong>denuncia anónima</strong>. Tus datos no serán compartidos.';
     }
 }
 
