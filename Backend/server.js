@@ -34,6 +34,9 @@ const estadisticaRoutes = require('./Routes/estadisticas');
 app.use('/api/auth', authRoutes);
 app.use('/api/denuncias', denunciaRoutes);
 app.use('/api/estadisticas', estadisticaRoutes);
+// Después de app.use('/api/auth', authRoutes);
+const dniRoutes = require('./Routes/dni');
+app.use('/api/dni', dniRoutes);
 
 // =====================
 // Ruta de prueba API

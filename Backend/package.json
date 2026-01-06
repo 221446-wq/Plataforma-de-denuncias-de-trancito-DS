@@ -9,13 +9,16 @@
     "install-deps": "npm install express mysql2 bcryptjs jsonwebtoken cors dotenv multer"
   },
   "dependencies": {
+    "axios": "^1.13.2",
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
-    "express": "^4.22.1",
-    "jsonwebtoken": "^9.0.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.16.0"
+    "mysql2": "^3.15.3",
+    "peru-dni": "^6.0.7"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
