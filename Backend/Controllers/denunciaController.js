@@ -2,6 +2,7 @@ const Denuncia = require('../Models/Denuncia');
 const cloudinary = require('cloudinary').v2;
 const User = require('../Models/User');
 const bcrypt = require('bcryptjs');
+const axios = require('axios'); // Import axios
 
 // !! IMPORTANTE !!
 // Configura Cloudinary con tus credenciales. 
@@ -222,6 +223,58 @@ class DenunciaController {
         } catch (error) {
             console.error('❌ Controlador: Error al obtener denuncia por código:', error);
             res.status(500).json({ error: 'Error al obtener denuncia: ' + error.message });
+        }
+    }
+
+    // Nuevo método para consultar DNI
+    static async consultarDNI(req, res) {
+        const { dni } = req.params;
+        const apiPeruToken = process.env.APIPERU_TOKEN;
+
+        // 1. Validar que el DNI tenga 8 dígitos
+        if (!dni || !/^\d{8}$/.test(dni)) {
+            return res.status(400).json({ success: false, message: 'El DNI debe tener 8 dígitos numéricos.' });
+        }
+
+        if (!apiPeruToken) {
+            console.error('APIPERU_TOKEN no está configurado en las variables de entorno.');
+            return res.status(500).json({ success: false, message: 'Error de configuración del servidor (token API).' });
+        }
+
+        try {
+            const apiUrl = `https://apiperu.dev/api/dni/${dni}?api_token=${apiPeruToken}`;
+            const response = await axios.get(apiUrl);
+
+            const data = response.data;
+
+            // Validar la respuesta de la API
+            if (data.success && data.data) {
+                const { nombres, apellido_paterno, apellido_materno } = data.data;
+                res.status(200).json({ 
+                    success: true,
+                    data: { nombres, apellido_paterno, apellido_materno }
+                });
+            } else if (data.message) {
+                // Mensaje de error de la API (ej. "No se encontró el DNI")
+                res.status(404).json({ success: false, message: data.message });
+            } else {
+                // Otro tipo de error o formato inesperado
+                res.status(500).json({ success: false, message: 'Error al consultar DNI: Respuesta inesperada de la API.' });
+            }
+
+        } catch (error) {
+            console.error('Error al consultar DNI con apiperu.dev:', error.message);
+            if (error.response) {
+                // La API de apiperu.dev respondió con un estado de error
+                console.error('Datos de error de apiperu.dev:', error.response.data);
+                res.status(error.response.status).json({ success: false, message: error.response.data.message || 'Error de la API externa.' });
+            } else if (error.request) {
+                // La petición fue hecha pero no hubo respuesta
+                res.status(500).json({ success: false, message: 'No se recibió respuesta de apiperu.dev.' });
+            } else {
+                // Algo más causó el error
+                res.status(500).json({ success: false, message: 'Error interno al procesar la solicitud DNI.' });
+            }
         }
     }
 }

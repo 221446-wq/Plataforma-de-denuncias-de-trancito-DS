@@ -16,4 +16,7 @@ router.get('/id/:id', authMiddleware, DenunciaController.obtenerDenunciaPorId);
 router.get('/', authMiddleware, DenunciaController.listarDenuncias);
 router.put('/:id/estado', authMiddleware, DenunciaController.actualizarEstado);
 
+// Ruta para consulta de DNI
+router.get('/dni/:dni', DenunciaController.consultarDNI);
+
 module.exports = router;

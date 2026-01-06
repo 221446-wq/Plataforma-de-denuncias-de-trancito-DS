@@ -16,9 +16,59 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Validación de DNI en tiempo real
-    document.getElementById('dni').addEventListener('input', function(e) {
+    const dniInput = document.getElementById('dni');
+    const nombresInput = document.getElementById('nombres');
+    const apellidosInput = document.getElementById('apellidos');
+
+    dniInput.addEventListener('input', function(e) {
         e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
         actualizarIndicadorDNI(e.target.value);
+    });
+
+    // Event listener para consultar DNI cuando el campo pierde el foco
+    dniInput.addEventListener('blur', async function() {
+        const dniValue = this.value;
+        if (dniValue.length === 8) {
+            // Puedes añadir un indicador de carga aquí
+            nombresInput.placeholder = 'Consultando DNI...';
+            apellidosInput.placeholder = 'Consultando DNI...';
+            nombresInput.value = '';
+            apellidosInput.value = '';
+            nombresInput.disabled = true;
+            apellidosInput.disabled = true;
+
+            try {
+                // Asumiendo que el backend está en el mismo origen o bien configurado con CORS
+                const response = await fetch(`/api/denuncias/dni/${dniValue}`);
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    nombresInput.value = data.data.nombres;
+                    apellidosInput.value = `${data.data.apellido_paterno} ${data.data.apellido_materno}`;
+                } else {
+                    alert(data.message || 'No se pudo obtener la información del DNI.');
+                    // Opcional: limpiar campos si la consulta falla
+                    nombresInput.value = '';
+                    apellidosInput.value = '';
+                }
+            } catch (error) {
+                console.error('Error al consultar DNI:', error);
+                alert('Error de conexión al consultar DNI. Intente nuevamente.');
+                nombresInput.value = '';
+                apellidosInput.value = '';
+            } finally {
+                nombresInput.placeholder = 'Ingrese sus nombres';
+                apellidosInput.placeholder = 'Ingrese sus apellidos';
+                nombresInput.disabled = false;
+                apellidosInput.disabled = false;
+            }
+        } else {
+            // Limpiar campos si el DNI no es válido o está incompleto
+            nombresInput.value = '';
+            apellidosInput.value = '';
+            nombresInput.disabled = false;
+            apellidosInput.disabled = false;
+        }
     });
     
     // Validación de celular en tiempo real
