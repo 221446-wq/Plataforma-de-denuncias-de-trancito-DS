@@ -21,10 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function cargarNombreUsuario() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const panelWelcome = document.querySelector('.panel-welcome');
     const userNameElement = document.getElementById('user-name');
     
     if (userNameElement && user.nombres) {
         userNameElement.textContent = user.nombres + ' ' + (user.apellidos || '');
+    } else if (panelWelcome) {
+        panelWelcome.innerHTML = 'Estás realizando una <strong>denuncia anónima</strong>. Tus datos no serán compartidos.';
     }
 }
 
@@ -80,36 +83,11 @@ async function registrarDenuncia() {
         botonDenuncia.textContent = 'Registrando...';
         botonDenuncia.disabled = true;
         
-        // VERIFICAR TOKEN ANTES DE CONTINUAR
+        // OBTENER TOKEN SI EXISTE
         const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
         
         console.log('🔐 Verificando sesión...');
         console.log('Token presente:', token ? 'Sí' : 'No');
-        console.log('Usuario:', user);
-        
-        if (!token) {
-            throw new Error('No hay token de autenticación. Por favor, inicie sesión nuevamente.');
-        }
-
-        // Verificar si el token ha expirado
-        try {
-            const tokenParts = token.split('.');
-            if (tokenParts.length === 3) {
-                const payload = JSON.parse(atob(tokenParts[1]));
-                const now = Date.now() / 1000;
-                
-                if (payload.exp && payload.exp < now) {
-                    console.log('❌ Token expirado');
-                    throw new Error('Token expirado');
-                }
-                
-                console.log('✅ Token válido. Usuario:', payload.usuario);
-            }
-        } catch (tokenError) {
-            console.error('Error verificando token:', tokenError);
-            throw new Error('Token inválido. Por favor, inicie sesión nuevamente.');
-        }
 
         const formData = new FormData();
         formData.append('tipo_denuncia', document.getElementById('tipo-denuncia').value);
@@ -126,14 +104,34 @@ async function registrarDenuncia() {
         }
 
         console.log('📤 Enviando denuncia con FormData...');
+
+        const headers = {};
+        if (token) {
+            // Verificar si el token ha expirado
+            try {
+                const tokenParts = token.split('.');
+                if (tokenParts.length === 3) {
+                    const payload = JSON.parse(atob(tokenParts[1]));
+                    const now = Date.now() / 1000;
+                    
+                    if (payload.exp && payload.exp < now) {
+                        console.log('❌ Token expirado');
+                        throw new Error('Token expirado');
+                    }
+                    
+                    console.log('✅ Token válido. Usuario:', payload.usuario);
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+            } catch (tokenError) {
+                console.error('Error verificando token:', tokenError);
+                throw new Error('Token inválido. Por favor, inicie sesión nuevamente.');
+            }
+        }
         
         // Usar fetch con FormData
         const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.DENUNCIAS.CREATE}`, {
             method: 'POST',
-            headers: {
-                // No establecer 'Content-Type', el navegador lo hará por nosotros con el boundary correcto
-                'Authorization': `Bearer ${token}`
-            },
+            headers: headers,
             body: formData
         });
         
