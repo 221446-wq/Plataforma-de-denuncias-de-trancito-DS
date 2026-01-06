@@ -2,18 +2,7 @@ const multer = require('multer');
 const path = require('path');
 
 // Configuración de almacenamiento de Multer
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // La carpeta 'uploads' debe estar al mismo nivel que 'server.js'
-        cb(null, path.join(__dirname, '../uploads'));
-    },
-    filename: (req, file, cb) => {
-        // Crear un nombre de archivo único para evitar colisiones
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const extension = path.extname(file.originalname);
-        cb(null, 'denuncia-' + uniqueSuffix + extension);
-    }
-});
+const storage = multer.memoryStorage();
 
 // Filtro de archivos para aceptar solo imágenes
 const fileFilter = (req, file, cb) => {

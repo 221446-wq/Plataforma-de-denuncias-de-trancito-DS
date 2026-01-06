@@ -1,21 +1,60 @@
 const Denuncia = require('../Models/Denuncia');
+const cloudinary = require('cloudinary').v2;
+
+// !! IMPORTANTE !!
+// Configura Cloudinary con tus credenciales. 
+// Es una MEJOR PRÁCTICA guardarlas como variables de entorno en tu servidor (Render) y no escribirlas directamente aquí.
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // Reemplaza con tu Cloud Name o usa variable de entorno
+  api_key: process.env.CLOUDINARY_API_KEY,       // Reemplaza con tu API Key o usa variable de entorno
+  api_secret: process.env.CLOUDINARY_API_SECRET  // Reemplaza con tu API Secret o usa variable de entorno
+});
+
+// Función para subir un archivo a Cloudinary desde un buffer
+const uploadToCloudinary = (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            { resource_type: 'auto' },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+        uploadStream.end(fileBuffer);
+    });
+};
+
 
 class DenunciaController {
     static async crearDenuncia(req, res) {
         try {
             console.log('Datos recibidos para denuncia:', req.body);
             console.log('Usuario autenticado:', req.user);
-            console.log('Archivos recibidos:', req.files); // Log para ver los archivos
+            console.log('Archivos recibidos en memoria:', req.files ? req.files.length : 0);
+
+            let archivosUrls = [];
+            if (req.files && req.files.length > 0) {
+                // Mapear cada archivo a una promesa de subida a Cloudinary
+                const uploadPromises = req.files.map(file => uploadToCloudinary(file.buffer));
+                
+                // Esperar a que todas las imágenes se suban
+                const uploadResults = await Promise.all(uploadPromises);
+                
+                // Extraer las URLs seguras de los resultados
+                archivosUrls = uploadResults.map(result => result.secure_url);
+            }
 
             const denunciaData = {
                 ...req.body,
                 usuario_id: req.user.id,
-                // Mapear los archivos subidos a sus rutas
-                archivos_fotos: req.files ? req.files.map(file => `/uploads/${file.filename}`) : []
+                // Guardar las URLs de Cloudinary en la base de datos
+                archivos_fotos: archivosUrls
             };
 
-            console.log('Datos a guardar en la BD:', denunciaData); // Log para ver los datos finales
-
+            console.log('Datos a guardar en la BD (con URLs de Cloudinary):', denunciaData);
 
             const result = await Denuncia.create(denunciaData);
             
