@@ -84,9 +84,13 @@ async function registrarDenuncia() {
         botonDenuncia.textContent = 'Registrando...';
         botonDenuncia.disabled = true;
         
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAnonymous = urlParams.get('anonymous') === 'true';
+
         const token = localStorage.getItem('token');
         console.log('🔐 Verificando sesión...');
         console.log('Token presente:', token ? 'Sí' : 'No');
+        console.log('Es anónimo:', isAnonymous);
 
         const formData = new FormData();
         formData.append('tipo_denuncia', document.getElementById('tipo-denuncia').value);
@@ -104,7 +108,7 @@ async function registrarDenuncia() {
         console.log('📤 Enviando denuncia con FormData...');
 
         const headers = {};
-        if (token) {
+        if (token && !isAnonymous) {
             tokenEnviado = true; // Marcamos que estamos intentando usar un token
             try {
                 const tokenParts = token.split('.');
