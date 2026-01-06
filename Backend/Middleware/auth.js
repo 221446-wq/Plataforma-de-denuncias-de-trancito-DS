@@ -92,8 +92,55 @@ const adminMiddleware = async (req, res, next) => {
     }
 };
 
-// Exportar ambos middlewares
+// Middleware de autenticación opcional
+const authOptional = async (req, res, next) => {
+    try {
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+        
+        console.log('=== MIDDLEWARE AUTH OPTIONAL ===');
+        console.log('Token recibido:', token ? 'Presente' : 'Ausente');
+        
+        // Si no hay token, la solicitud es anónima, continuamos sin error.
+        if (!token) {
+            console.log('Solicitud anónima. Continuando...');
+            return next();
+        }
+
+        // Si hay token, lo verificamos.
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secreto');
+        console.log('Token decodificado:', decoded);
+        
+        const user = await User.findById(decoded.id);
+        console.log('Usuario encontrado:', user ? user.usuario : 'No encontrado');
+
+        // Si el token es válido, adjuntamos el usuario a la solicitud.
+        if (user) {
+            req.user = user;
+            console.log('Autenticación opcional exitosa para:', user.usuario);
+        }
+        // Si el usuario no se encuentra pero había un token, no bloqueamos la solicitud,
+        // pero tampoco autenticamos. Simplemente continuamos.
+
+        next();
+    } catch (error) {
+        // Un token inválido o expirado SÍ debe devolver un error.
+        // No queremos que alguien con un token "malo" pueda continuar.
+        console.error('Error en autenticación opcional (token inválido):', error);
+        
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ error: 'Token inválido.' });
+        } else if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ error: 'Token expirado.' });
+        }
+        
+        // Para otros errores, simplemente no autenticamos y continuamos.
+        next();
+    }
+};
+
+// Exportar todos los middlewares
 module.exports = { 
     authMiddleware, 
-    adminMiddleware 
+    adminMiddleware,
+    authOptional
 };

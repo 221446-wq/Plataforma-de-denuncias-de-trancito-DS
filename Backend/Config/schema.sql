@@ -23,7 +23,7 @@ CREATE TABLE usuarios (
 -- Tabla de denuncias
 CREATE TABLE denuncias (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,
+    usuario_id INT NULL,
     codigo_denuncia VARCHAR(20) UNIQUE NOT NULL,
     tipo_denuncia VARCHAR(100) NOT NULL,
     descripcion TEXT NOT NULL,

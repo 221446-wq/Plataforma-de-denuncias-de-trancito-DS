@@ -49,7 +49,8 @@ class DenunciaController {
 
             const denunciaData = {
                 ...req.body,
-                usuario_id: req.user.id,
+                // Asignar el ID de usuario si está autenticado, o null si es anónimo
+                usuario_id: req.user ? req.user.id : null,
                 // Guardar las URLs de Cloudinary en la base de datos
                 archivos_fotos: archivosUrls
             };
