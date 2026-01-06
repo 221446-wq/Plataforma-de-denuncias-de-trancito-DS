@@ -77,15 +77,14 @@ async function validarFormularioDenuncia() {
 async function registrarDenuncia() {
     const botonDenuncia = document.querySelector('.denuncia-btn');
     const textoOriginal = botonDenuncia.textContent;
+    let tokenEnviado = false; // Para rastrear si se usó un token
     
     try {
         // Mostrar estado de carga
         botonDenuncia.textContent = 'Registrando...';
         botonDenuncia.disabled = true;
         
-        // OBTENER TOKEN SI EXISTE
         const token = localStorage.getItem('token');
-        
         console.log('🔐 Verificando sesión...');
         console.log('Token presente:', token ? 'Sí' : 'No');
 
@@ -97,7 +96,6 @@ async function registrarDenuncia() {
         formData.append('direccion', document.getElementById('direccion').value);
         formData.append('prioridad', 'media');
 
-        // Adjuntar archivos de fotos
         const fotosInput = document.getElementById('fotos');
         for (let i = 0; i < fotosInput.files.length; i++) {
             formData.append('fotos', fotosInput.files[i]);
@@ -107,7 +105,7 @@ async function registrarDenuncia() {
 
         const headers = {};
         if (token) {
-            // Verificar si el token ha expirado
+            tokenEnviado = true; // Marcamos que estamos intentando usar un token
             try {
                 const tokenParts = token.split('.');
                 if (tokenParts.length === 3) {
@@ -128,7 +126,6 @@ async function registrarDenuncia() {
             }
         }
         
-        // Usar fetch con FormData
         const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.DENUNCIAS.CREATE}`, {
             method: 'POST',
             headers: headers,
@@ -147,13 +144,11 @@ async function registrarDenuncia() {
         
         alert(`¡Denuncia registrada exitosamente!\nCódigo de seguimiento: ${responseData.codigo_denuncia}\nGuarde este código para hacer seguimiento.`);
         
-        // Limpiar formulario
         document.querySelector('.denuncia-form').reset();
         document.getElementById('latitud').value = '';
         document.getElementById('longitud').value = '';
         document.getElementById('direccion').value = '';
         
-        // Restablecer mapa a posición inicial
         if (marker && map) {
             marker.setLatLng(defaultLocation);
             map.setView(defaultLocation, 14);
@@ -163,16 +158,18 @@ async function registrarDenuncia() {
     } catch (error) {
         console.error('💥 Error completo al registrar denuncia:', error);
         
-        if (error.message.includes('401') || error.message.includes('token') || error.message.includes('expirado') || error.message.includes('autenticación')) {
-            alert('Su sesión ha expirado. Por favor, inicie sesión nuevamente.');
-            // Limpiar datos de sesión expirados
+        // SOLO redirigir si el error es de autenticación Y se había enviado un token.
+        const isAuthError = error.message.includes('401') || error.message.includes('token') || error.message.includes('expirado') || error.message.includes('autenticación');
+        
+        if (isAuthError && tokenEnviado) {
+            alert('Su sesión ha expirado o es inválida. Por favor, inicie sesión nuevamente.');
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             setTimeout(() => {
                 window.location.href = 'login.html';
             }, 2000);
         } else if (error.message.includes('Network Error') || error.message.includes('Failed to fetch')) {
-            alert('Error de conexión: Verifica que el servidor esté funcionando en http://localhost:3000');
+            alert('Error de conexión: No se pudo conectar al servidor. Verifique que esté activo.');
         } else {
             alert('Error al registrar denuncia: ' + error.message);
         }
